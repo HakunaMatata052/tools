@@ -2,20 +2,32 @@
 	<div>
 		<Row :gutter="16">
 			<Col span="8">
-				<fanyi></fanyi>
+			<fanyi></fanyi>
 			</Col>
 			<Col span="8">
-				<lazyload></lazyload>
+			<lazyload></lazyload>
 			</Col>
 			<Col span="8">
-				<addattr></addattr>
+			<addattr></addattr>
 			</Col>
 		</Row>
-		
-			<br>
-			<Row :gutter="16">
+
+		<br>
+		<Row :gutter="16">
 			<Col span="8">
-				<transference></transference>
+			<transference></transference>
+			</Col>
+			<Col span="8">
+			<ip></ip>
+			</Col>
+		</Row>
+		<br>
+		<Row>
+			<Col span="24">
+				<Card>
+					<p slot="title">素材下载</p>
+					<p><iframe src="http://images.dongliwuxianjituan.top" frameborder="0" width="100%" height="300"></iframe></p>
+				</Card>
 			</Col>
 		</Row>
 	</div>
@@ -24,18 +36,16 @@
 <script>
 	import fanyi from '../tools/Fanyi'
 	import lazyload from '../tools/Lazyload'
-	import addattr from '../tools/Addattr'	
+	import addattr from '../tools/Addattr'
 	import transference from '../tools/Transference'
-		export default {
+	import ip from '../tools/Ip'
+	export default {
 		components: {
 			fanyi,
 			lazyload,
 			addattr,
-			transference
+			transference,
+			ip
 		}
 	}
 </script>
-
-<style>
-
-</style>

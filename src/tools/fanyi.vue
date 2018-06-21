@@ -9,8 +9,6 @@
 		<p>
 			<Button type="success" long @click="fayi">翻译成英文</Button>
 		</p>
-		<br v-if="jieguo.length!=0">
-		<p v-if="jieguo.length!=0">{{jieguo}}</p>
 	</Card>
 </template>
 
@@ -45,8 +43,7 @@
 						sign: sign
 					}
 				}).then(function(res) {
-					var that = this;
-					that.jieguo = res.body.trans_result[0].dst
+					that.hanyu = res.body.trans_result[0].dst
 				}, function(res) {
 
 				});
