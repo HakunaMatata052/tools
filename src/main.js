@@ -10,6 +10,10 @@ import vueResource from 'vue-resource'
 Vue.config.debug = true;
 Vue.use(iView);
 Vue.use(vueResource);
+Vue.http.options.emulateJSON = true;
+Vue.http.options.headers = {
+  'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+};
 //Vue.use(VueRouter);
  
 // 定义组件, 也可以像教程之前教的方法从别的文件引入

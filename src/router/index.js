@@ -12,6 +12,9 @@ import zhaocha from '../zhaocha/Zhaocha'
 
 import wjc from '../wjc/Wjc'
 
+import network from '../network/Network'
+import email from '../email/Email'
+
 Vue.use(VueRouter);
 const router = new VueRouter({
 	routes: [{ //前台路由配置
@@ -23,8 +26,8 @@ const router = new VueRouter({
 			component: Tools
 		},
 		{
-			path: '/second',
-			component: List
+			path: '/network',
+			component: network
 		},
 		{
 			path: '/zhaocha',
@@ -41,6 +44,10 @@ const router = new VueRouter({
 		{
 			path: '/customer',
 			component: customer
+		},
+		{
+			path: '/email',
+			component: email
 		}
 	]
 })
