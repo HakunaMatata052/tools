@@ -22,122 +22,122 @@
 		<div v-if="show">
 			<br>
 			<Row :gutter="16">
-				<Col span="18">
-				<Card>
-					公司名称：
-					<h1>{{jieguo.companyname}}</h1>
-					<br> (如果公司名称不对或未显示，请重新查询！)
-				</Card>
-				</Col>
-				<Col span="6">
+				<i-col :xs="24" :sm="18" :md="18">
+					<Card>
+						公司名称：
+						<h1>{{jieguo.companyname}}</h1>
+						<br> (如果公司名称不对或未显示，请重新查询！)
+					</Card>
+				</i-col ">
+				<i-col :xs="24 " :sm="6 " :md="6 ">
 				<Card>
 					<h1>网站得分：{{score}}</h1>
 				</Card>
-				</Col>
+				</i-col">
 			</Row>
 			<br>
 			<Row :gutter="16">
-				<Col span="12">
+				<i-col :xs="24" :sm="12" :md="12">
+					<Card>
+						<p slot="title">
+							<Icon type="ios-film-outline"></Icon>
+							链接与图片
+						</p>
+						<h3 v-if="jieguo.nlink!=0">链接中没有title属性的有：{{jieguo.nlink}}个</h3>
+						<Alert type="error" v-if="jieguo.titlenum!=undefined && jieguo.titlenum.length!=0">
+							<ul v-html="jieguo.titlenum">
+							</ul>
+						</Alert>
+
+						<h3 v-if="jieguo.elink!=0">链接中title属性可能错误的有：{{jieguo.elink}}个</h3>
+						<Alert type="error" v-if="jieguo.etitlenum!=undefined && jieguo.etitlenum.length!=0">
+							<ul v-html="jieguo.etitlenum">
+							</ul>
+						</Alert>
+
+						<h3 v-if="jieguo.titlebpp!=0">链接中title属性与内容不匹配的有(仅注意即可不一定需要修改)：{{jieguo.titlebpp}}个</h3>
+						<Alert type="error" v-if="jieguo.titlebppnum!=undefined && jieguo.titlebppnum.length!=0">
+							<ul v-html="jieguo.titlebppnum">
+							</ul>
+						</Alert>
+
+						<h3 v-if="jieguo.nalt!=0">图片中没有alt和title属性的有：{{jieguo.nalt}}个</h3>
+						<Alert type="error" v-if="jieguo.altnum!=undefined && jieguo.altnum.length!=0">
+							<ul v-html="jieguo.altnum">
+							</ul>
+						</Alert>
+
+						<h3 v-if="jieguo.errorlink!=0">网页中有错误链接：{{jieguo.errorlink}}</h3>
+						<Alert type="error" v-if="jieguo.errorlinklist!=undefined && jieguo.errorlinklist.length!=0">
+							<ul v-html="jieguo.errorlinklist">
+							</ul>
+						</Alert>
+					</Card>
+				</i-col ">
+				<i-col :xs="24 " :sm="12 " :md="12 ">
 				<Card>
-					<p slot="title">
-						<Icon type="ios-film-outline"></Icon>
-						链接与图片
-					</p>
-					<h3 v-if="jieguo.nlink!=0">链接中没有title属性的有：{{jieguo.nlink}}个</h3>
-					<Alert type="error" v-if="jieguo.titlenum!=undefined && jieguo.titlenum.length!=0">
-						<ul v-html="jieguo.titlenum">
-						</ul>
-					</Alert>
-
-					<h3 v-if="jieguo.elink!=0">链接中title属性可能错误的有：{{jieguo.elink}}个</h3>
-					<Alert type="error" v-if="jieguo.etitlenum!=undefined && jieguo.etitlenum.length!=0">
-						<ul v-html="jieguo.etitlenum">
-						</ul>
-					</Alert>
-
-					<h3 v-if="jieguo.titlebpp!=0">链接中title属性与内容不匹配的有(仅注意即可不一定需要修改)：{{jieguo.titlebpp}}个</h3>
-					<Alert type="error" v-if="jieguo.titlebppnum!=undefined && jieguo.titlebppnum.length!=0">
-						<ul v-html="jieguo.titlebppnum">
-						</ul>
-					</Alert>
-
-					<h3 v-if="jieguo.nalt!=0">图片中没有alt和title属性的有：{{jieguo.nalt}}个</h3>
-					<Alert type="error" v-if="jieguo.altnum!=undefined && jieguo.altnum.length!=0">
-						<ul v-html="jieguo.altnum">
-						</ul>
-					</Alert>
-
-					<h3 v-if="jieguo.errorlink!=0">网页中有错误链接：{{jieguo.errorlink}}</h3>
-					<Alert type="error" v-if="jieguo.errorlinklist!=undefined && jieguo.errorlinklist.length!=0">
-						<ul v-html="jieguo.errorlinklist">
-						</ul>
-					</Alert>
-				</Card>
-				</Col>
-				<Col span="12">
-				<Card>
-					<p slot="title">
-						<Icon type="ios-film-outline"></Icon>
+					<p slot="title ">
+						<Icon type="ios-film-outline "></Icon>
 						杂项分析
 					</p>
 					<table>
 						<tbody>
 							<tr>
-								<th width="50%"></th>
-								<th width="50%"></th>
+								<th width="50% "></th>
+								<th width="50% "></th>
 							</tr>
 							<tr>
 								<td>技术支持是否正确：</td>
-								<td v-html="jieguo.technical"></td>
+								<td v-html="jieguo.technical "></td>
 							</tr>
 							<tr>
 								<td>H1标签数量：</td>
-								<td v-html="jieguo.h1num"></td>
+								<td v-html="jieguo.h1num "></td>
 							</tr>
 							<tr>
 								<td>H2标签数量：</td>
-								<td v-html="jieguo.h2num"></td>
+								<td v-html="jieguo.h2num "></td>
 							</tr>
 							<tr>
 								<td>H3标签:</td>
-								<td v-html="jieguo.h3"></td>
+								<td v-html="jieguo.h3 "></td>
 							</tr>
 							<tr>
 								<td>网站立即咨询的qq号为：</td>
-								<td v-html="jieguo.qq"></td>
+								<td v-html="jieguo.qq "></td>
 							</tr>
 							<tr>
 								<td>网站出现程序代码：</td>
-								<td v-html="jieguo.program"></td>
+								<td v-html="jieguo.program "></td>
 							</tr>
 
 							<tr>
-								<td>rel="external nofollow"是否正确：</td>
-								<td v-html="jieguo.rel"></td>
+								<td>rel="external nofollow "是否正确：</td>
+								<td v-html="jieguo.rel "></td>
 							</tr>
 
 							<tr>
 								<td></td>
-								<td v-html="jieguo.rellist"></td>
+								<td v-html="jieguo.rellist "></td>
 							</tr>
 							<tr>
 								<td>企业商铺链接是否正确：</td>
-								<td v-html="jieguo.qysp"></td>
+								<td v-html="jieguo.qysp "></td>
 							</tr>
 
 							<tr>
 								<td>三张banner的title为：</td>
-								<td v-html="jieguo.banner"></td>
+								<td v-html="jieguo.banner "></td>
 							</tr>
 							<tr>
 								<td>三张banner的链接为： </td>
-								<td v-html="jieguo.bannerhref"></td>
+								<td v-html="jieguo.bannerhref "></td>
 							</tr>
 
 						</tbody>
 					</table>
 				</Card>
-				</Col>
+				</i-col">
 			</Row>
 		</div>
 	</div>
@@ -278,7 +278,7 @@
 						};
 						if(atitlenum3 > 0) {
 							//$("#titlebpp").html(atitlenum3 + '个&nbsp;&nbsp;<a data-toggle="collapse" data-parent="#accordion" href="#titlebpplist">点击查看</a>');
-							contentjson.titlebpp = atitlenum3 ;
+							contentjson.titlebpp = atitlenum3;
 						} else {
 							//$("#titlebpp").html(atitlenum3 + '个');
 							contentjson.titlebpp = atitlenum3;
@@ -319,7 +319,7 @@
 						contentjson.errorlinknum = errorlinknumlist;
 						if(errorlinknum > 0) {
 							//$("#errorlink").html(errorlinknum + '个&nbsp;&nbsp;<a data-toggle="collapse" data-parent="#accordion" href="#errorlinklist">点击查看</a>');
-							contentjson.errorlink = errorlinknum ;
+							contentjson.errorlink = errorlinknum;
 						} else {
 							//$("#errorlink").html('暂时未发现错误链接<br>（并不代表没有死链）');
 							contentjson.errorlink = '暂时未发现错误链接（并不代表没有死链）';
@@ -327,7 +327,7 @@
 						//错误的title
 						if(etitle > 0) {
 							//$("#elink").html(etitle + '个&nbsp;&nbsp;<a data-toggle="collapse" data-parent="#accordion" href="#aelist">点击查看</a>')
-							contentjson.elink = etitle ;
+							contentjson.elink = etitle;
 						} else {
 							//$("#elink").html(etitle + '个');
 							contentjson.elink = etitle;
@@ -365,7 +365,7 @@
 							contentjson.nalt = imgaltnum;
 						} else {
 							//$("#nalt").html(imgaltnum + '个');
-							contentjson.nalt = imgaltnum ;
+							contentjson.nalt = imgaltnum;
 						}
 					}
 					//技术支持
@@ -711,14 +711,15 @@
 	table {
 		width: 100%;
 	}
+	
 	table td p {
-		
 		color: #8a6d3b;
 		background-color: #fcf8e3;
 		border-color: #faebcc;
 		padding: 10px 20px;
 		border-radius: 5px;
 	}
+	
 	.alert-danger {
 		color: #a94442;
 		border: 1px solid #fbd9d0;

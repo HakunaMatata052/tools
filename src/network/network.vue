@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<Row :gutter="16">
-			<Col span="8">
+			<i-col :xs="24" :sm="8" :md="8">
 			<Card>
 				<p slot="title">设计参考</p>
 				<a href="javascript:;" slot="extra">
@@ -18,7 +18,7 @@
 				<Input v-model="url" size="large" placeholder="网址" style="width: 200px"></Input>
 				<Button type="success" @click="add">提交</Button>
 			</Card>
-			</Col>
+			</i-col>
 		</Row>
 	</div>
 </template>

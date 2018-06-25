@@ -1,34 +1,34 @@
 <template>
 	<div>
 		<Row :gutter="16">
-			<Col span="8">
+			<i-col :xs="24" :sm="8" :md="8">
 			<fanyi></fanyi>
-			</Col>
-			<Col span="8">
+			</i-col>
+			<i-col :xs="24" :sm="8" :md="8">
 			<lazyload></lazyload>
-			</Col>
-			<Col span="8">
+			</i-col>
+			<i-col :xs="24" :sm="8" :md="8">
 			<addattr></addattr>
-			</Col>
+			</i-col>
 		</Row>
 
 		<br>
 		<Row :gutter="16">
-			<Col span="8">
+			<i-col :xs="24" :sm="8" :md="8">
 			<transference></transference>
-			</Col>
-			<Col span="8">
+			</i-col>
+			<i-col :xs="24" :sm="8" :md="8">
 			<ip></ip>
-			</Col>
+			</i-col>
 		</Row>
 		<br>
 		<Row>
-			<Col span="8">
+			<i-col :xs="24" :sm="8" :md="8">
 				<Card>
 					<p slot="title">素材下载</p>
 					<p><iframe src="http://images.dongliwuxianjituan.top/login.aspx" frameborder="0" width="100%" height="327"></iframe></p>
 				</Card>
-			</Col>
+			</i-col>
 		</Row>
 	</div>
 </template>

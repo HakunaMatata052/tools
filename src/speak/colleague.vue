@@ -1,6 +1,6 @@
 <template>
 	<Row :gutter="16">
-		<Col span="8">
+		<i-col :xs="24" :sm="8" :md="8">
 		<Card>
 			<p slot="title">通知商务</p>
 			<p id="foo3">
@@ -8,7 +8,7 @@
 			<Button slot="append" class="btn" data-clipboard-target="#foo3">复制</Button>
 			</p>
 		</Card>
-		</Col>
+		</i-col>
 	</Row>
 </template>
 
