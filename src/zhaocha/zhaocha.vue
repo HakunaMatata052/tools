@@ -25,19 +25,47 @@
 				<i-col :xs="24" :sm="18" :md="18">
 					<Card>
 						公司名称：
-						<h1>{{jieguo.companyname}}</h1>
+						<h1><a :href="'http://'+domain" target="_blank">{{jieguo.companyname}}</a></h1>
 						<br> (如果公司名称不对或未显示，请重新查询！)
 					</Card>
-				</i-col ">
+				</i-col>
 				<i-col :xs="24 " :sm="6 " :md="6 ">
-				<Card>
-					<h1>网站得分：{{score}}</h1>
-				</Card>
-				</i-col">
+					<Card>
+						<h1>网站得分：{{score}}</h1>
+					</Card>
+				</i-col>
 			</Row>
 			<br>
 			<Row :gutter="16">
-				<i-col :xs="24" :sm="12" :md="12">
+				<i-col :xs="24" :sm="24" :md="24">
+					<Card>
+						<p slot="title">基础三项：</p>
+						<table>
+							<tbody>
+								<tr>
+									<th width="20%"></th>
+									<th></th>
+								</tr>
+								<tr>
+									<td>网站标题：</td>
+									<td>{{jieguo.title}}</td>
+								</tr>
+								<tr>
+									<td>网站描述：</td>
+									<td>{{jieguo.description}}</td>
+								</tr>
+								<tr>
+									<td>网站关键词：</td>
+									<td v-html="jieguo.keywords"></td>
+								</tr>
+							</tbody>
+						</table>
+					</Card>
+				</i-col>
+			</Row>
+			<br>
+			<Row :gutter="16">
+				<i-col :xs="24" :sm="24" :md="12">
 					<Card>
 						<p slot="title">
 							<Icon type="ios-film-outline"></Icon>
@@ -68,76 +96,87 @@
 						</Alert>
 
 						<h3 v-if="jieguo.errorlink!=0">网页中有错误链接：{{jieguo.errorlink}}</h3>
-						<Alert type="error" v-if="jieguo.errorlinklist!=undefined && jieguo.errorlinklist.length!=0">
-							<ul v-html="jieguo.errorlinklist">
+						<Alert type="error" v-if="jieguo.errorlinknum!=undefined && jieguo.errorlinknum.length!=0">
+							<ul v-html="jieguo.errorlinknum">
 							</ul>
 						</Alert>
 					</Card>
-				</i-col ">
-				<i-col :xs="24 " :sm="12 " :md="12 ">
-				<Card>
-					<p slot="title ">
-						<Icon type="ios-film-outline "></Icon>
-						杂项分析
-					</p>
-					<table>
-						<tbody>
-							<tr>
-								<th width="50% "></th>
-								<th width="50% "></th>
-							</tr>
-							<tr>
-								<td>技术支持是否正确：</td>
-								<td v-html="jieguo.technical "></td>
-							</tr>
-							<tr>
-								<td>H1标签数量：</td>
-								<td v-html="jieguo.h1num "></td>
-							</tr>
-							<tr>
-								<td>H2标签数量：</td>
-								<td v-html="jieguo.h2num "></td>
-							</tr>
-							<tr>
-								<td>H3标签:</td>
-								<td v-html="jieguo.h3 "></td>
-							</tr>
-							<tr>
-								<td>网站立即咨询的qq号为：</td>
-								<td v-html="jieguo.qq "></td>
-							</tr>
-							<tr>
-								<td>网站出现程序代码：</td>
-								<td v-html="jieguo.program "></td>
-							</tr>
+				</i-col>
+				<i-col :xs="24 " :sm="24" :md="12 ">
+					<Card>
+						<p slot="title ">
+							<Icon type="ios-film-outline "></Icon>
+							杂项分析
+						</p>
+						<table>
+							<tbody>
+								<tr>
+									<th width="30%"></th>
+									<th></th>
+								</tr>
+								<tr>
+									<td>技术支持是否正确：</td>
+									<td v-html="jieguo.technical"></td>
+								</tr>
+								<tr>
+									<td>H1标签数量：</td>
+									<td v-html="jieguo.h1num "></td>
+								</tr>
+								<tr>
+									<td>H2标签数量：</td>
+									<td v-html="jieguo.h2num "></td>
+								</tr>
+								<tr>
+									<td>H3标签:</td>
+									<td v-html="jieguo.h3 "></td>
+								</tr>
+								<tr>
+									<td>强调标签:</td>
+									<td v-html="jieguo.qdbq "></td>
+								</tr>
+								<tr>
+									<td>网站立即咨询的qq号为：</td>
+									<td v-html="jieguo.qq "></td>
+								</tr>
+								<tr>
+									<td>网站出现程序代码：</td>
+									<td v-html="jieguo.program "></td>
+								</tr>
 
-							<tr>
-								<td>rel="external nofollow "是否正确：</td>
-								<td v-html="jieguo.rel "></td>
-							</tr>
+								<tr>
+									<td>rel="external nofollow "是否正确：</td>
+									<td v-html="jieguo.rel "></td>
+								</tr>
 
-							<tr>
-								<td></td>
-								<td v-html="jieguo.rellist "></td>
-							</tr>
-							<tr>
-								<td>企业商铺链接是否正确：</td>
-								<td v-html="jieguo.qysp "></td>
-							</tr>
+								<tr>
+									<td></td>
+									<td v-html="jieguo.rellist"></td>
+								</tr>
+								<tr v-if="0">
+									<td>企业商铺链接是否正确：</td>
+									<td v-html="jieguo.qysp"></td>
+								</tr>
 
-							<tr>
-								<td>三张banner的title为：</td>
-								<td v-html="jieguo.banner "></td>
-							</tr>
-							<tr>
-								<td>三张banner的链接为： </td>
-								<td v-html="jieguo.bannerhref "></td>
-							</tr>
+								<tr>
+									<td>三张banner的title为：</td>
+									<td v-html="jieguo.bannertitle"></td>
+								</tr>
+								<tr>
+									<td>三张banner的链接为： </td>
+									<td v-html="jieguo.bannerhref"></td>
+								</tr>
 
-						</tbody>
-					</table>
-				</Card>
-				</i-col">
+							</tbody>
+						</table>
+					</Card>
+					<Card>
+						<p slot="title ">
+							<Icon type="ios-film-outline "></Icon>
+							杂项分析
+						</p>
+						<iframe id="mainframe" name="mainframe" frameborder="0" :src="'http://'+domain+'/m'" width="425" height="667" style="margin: auto;"></iframe>
+					</Card>
+				</i-col>
 			</Row>
 		</div>
 	</div>
@@ -159,6 +198,7 @@
 		methods: {
 			zhaocha() {
 				var that = this;
+				that.domain = that.domain.replace('http://','')
 				that.loading = 1;
 				that.score = 100;
 				let contentjson = {};
@@ -171,8 +211,6 @@
 					content = content.replace(/<html.*?>/gi, '')
 					content = content.replace('</html>', '</div>')
 					parent = $(content);
-					console.log(res);
-					console.log(parent);
 					jcsx();
 					achazhao();
 					imgchazhao();
@@ -181,12 +219,14 @@
 					h3();
 					linknum();
 					style();
+					qdbq();
 					qq();
 					jq();
 					banner();
 					technical(that.company);
 					rel(that.company);
 					program();
+					console.log(that.jieguo);
 					that.jieguo = contentjson;
 					that.loading = 0;
 					that.show = 1;
@@ -204,7 +244,7 @@
 							var keywordsArray = keywords.split(",");
 							var keywordslist = '';
 							for(var i = 0; i < keywordsArray.length; i++) {
-								keywordslist += '<a href="https://www.baidu.com/s?ie=UTF-8&wd=' + keywordsArray[i] + '" target="_blank" class="btn btn-link">' + keywordsArray[i] + '</a>';
+								keywordslist += '<a href="https://www.baidu.com/s?ie=UTF-8&wd=' + keywordsArray[i] + '" target="_blank" class="btn btn-link">' + keywordsArray[i] + '</a>&nbsp;&nbsp;&nbsp;&nbsp;';
 								//$("#keywords").prepend()
 							};
 							contentjson.keywords = keywordslist;
@@ -523,6 +563,20 @@
 							contentjson.style = '<div class="alert alert-warning" role="alert"><b class="text-danger">页面中含有style页内样式</b></div>';
 							that.score = that.score - 5;
 						}
+					}
+					//语义标签
+					function qdbq(){
+						var qdbqcon = '';
+						var emnum = $('em').length;
+						var strongnum = $('strong').length;
+						if(emnum>0){
+							qdbqcon+='<div class="alert alert-danger">页面还有&lt;em&gt;标签</div>'
+						}else if(strongnum>0){
+							qdbqcon+='<div class="alert alert-danger">页面还有&lt;strong&gt;标签</div>'
+						}else {
+							qdbqcon = '<div class="alert alert-success">页面还有不含有强调标签</div>'
+						}
+						contentjson.qdbq = qdbqcon;
 					}
 					//rel
 					function rel(n) {

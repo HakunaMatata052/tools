@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<Row :gutter="16">
-			<i-col :xs="24" :sm="8" :md="8">
+			<i-col :xs="24" :sm="24" :md="8">
 				<Card>
 					<p slot="title">要资料邮件</p>
 					<p>
@@ -50,7 +50,7 @@
 					</p>
 				</Card>
 			</i-col>
-			<i-col :xs="24" :sm="8" :md="8">
+			<i-col :xs="24" :sm="24" :md="8">
 				<Card>
 					<p slot="title">首页效果图邮件</p>
 					<p>
