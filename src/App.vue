@@ -3,7 +3,7 @@
 		<div class="layout">
 			<Layout>
 				<!--<Header></Header>-->
-				<sider></sider>
+				<sider :userdata="userdata"></sider>
 			</Layout>
 		</div>
 	</div>
@@ -34,9 +34,10 @@
 	export default {
 		data() {
 			return {
-				author: "app主页面"
+				author: "app主页面",
 			}
 		},
+		props: ['userdata'],
 		components: {
 			Header,
 			Sider

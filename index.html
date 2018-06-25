@@ -1,12 +1,41 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>设计二部工具集</title>
-  </head>
-  <body>
-    <div id="app">
-    </div>
-  </body>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<title>设计二部工具集</title>
+	</head>
+
+	<body>
+		<div id="app">
+		</div>
+
+	</body>
+
 </html>
+<!--<script>
+	var fs = require("fs");
+	var fileName = ""; //文件名称  
+	fileName = "user.txt";
+	fs.exists(fileName, function(exists) {
+		console.log(exists ? "文件存在" : "文件不存在");
+		if(exists) {
+			fileName = "user.txt";
+			fs.readFile(fileName, function(err, data) {
+				console.log("读取文本内容:" + data.toString());
+				var str =data.toString();
+				app.setuserdata(str);
+			});
+		}
+	});
+
+	function text(email, password) {
+		//创建文本  
+		fileName = "user.txt";
+		var content = email + ',' + password;
+		fs.writeFile(fileName, content, function(err) {
+			console.log("文本创建成功");
+		});
+	}
+</script>-->

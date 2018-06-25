@@ -38,7 +38,7 @@
 				<BreadcrumbItem>Layout</BreadcrumbItem>
 			</Breadcrumb>-->
 			<Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
-				<router-view></router-view>
+				<router-view :userdata="userdata"></router-view>
 			</Content>
 		</Layout>
 	</Layout>
@@ -48,7 +48,13 @@
 import Vue from 'vue';
 import router from '../router'
 export default {
-	router: router
+	router: router,
+	data(){
+		return{
+			
+		}
+	},
+	props: ['userdata']
 }
 </script>
 

@@ -42,8 +42,16 @@ Vue.http.options.headers = {
 // 路由器会创建一个 App 实例，并且挂载到选择符 #app 匹配的元素上。
 const app = new Vue({
   //router: router,
+  data:{
+  	userdata:''
+  },
+  methods: {
+  	setuserdata(data){
+  		this.userdata = data;
+  		alert()
+  	}
+  },
   components: { App },
-  template:'<App/>'
+  template:'<App :userdata="userdata"/>'
   //render: h => h(App)
-}).$mount('#app')
-
+}).$mount('#app');
