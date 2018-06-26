@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<Row :gutter="16">
-			<i-col :xs="24" :sm="24" :md="8">
+			<i-col :xs="24" :sm="24" :md="12">
 				<Card>
 					<p slot="title">要资料邮件</p>
 					<p>
@@ -46,11 +46,11 @@
 						<Input v-model="qq" placeholder="qq...">
 						<span slot="prepend">Q   Q：</span>
 						</Input><br>
-						<Button type="success" long @click="send('yaoziliao')" :disabled="show=='close'">发送</Button>
+						<Button type="success" long @click="modal2 = true">发送</Button>
 					</p>
 				</Card>
 			</i-col>
-			<i-col :xs="24" :sm="24" :md="8">
+			<i-col :xs="24" :sm="24" :md="12">
 				<Card>
 					<p slot="title">首页效果图邮件</p>
 					<p>
@@ -98,18 +98,38 @@
 						<Input v-model="qq" placeholder="qq...">
 						<span slot="prepend">Q   Q：</span>
 						</Input><br>
-						<Button type="success" long @click="send('shouye')" :disabled="show=='close'">发送</Button>
+						<Button type="success" long @click="modal1 = true">发送</Button>
 					</p>
 				</Card>
 			</i-col>
 		</Row>
+		<Modal v-model="modal1" title="Title" :loading="loading" :mask-closable="false" :closable="false" @on-ok="send('shouye')">
+			<p>客户公司名称：<h3>{{cname}}</h3></p>
+			<br>
+			<p>客户负责人称呼：<h3>{{realname}}</h3></p>
+			<br>
+			<p>客户邮箱：<h3>{{cemail}}</h3></p>
+			<br>
+			<p>效果图链接：<h3><a :href="url">{{url}}</a></h3></p>
+			<br>
+			<p><h5>请确认无误后点击确定</h5></p>
+		</Modal>
+		<Modal v-model="modal2" title="Title" :loading="loading" :mask-closable="false" :closable="false" @on-ok="send('yaoziliao')">
+			<p>客户公司名称：<h3>{{cname}}</h3></p>
+			<br>
+			<p>客户负责人称呼：<h3>{{realname}}</h3></p>
+			<br>
+			<p>客户邮箱：<h3>{{cemail}}</h3></p>
+			<br>
+			<p><h5>请确认无误后点击确定</h5></p>
+		</Modal>
 	</div>
 </template>
 
 <script>
-	import Vue from 'vue';
-	import VueCookie from 'vue-cookie';
-	Vue.use(VueCookie);
+	//import Vue from 'vue';
+	//import VueCookie from 'vue-cookie';
+	//Vue.use(VueCookie);
 	export default {
 		data() {
 			return {
@@ -123,52 +143,70 @@
 				tel: '',
 				qq: '',
 				company: '',
-				show: 'open'
+				modal1:false,
+				modal2:false,
+				loading: true
 			}
 		},
 		props: ['userdata'],
 		mounted() {
-			var that = this;
-			that.email = that.$cookie.get('email');
-			that.password = that.$cookie.get('password');
-			that.name = that.$cookie.get('name');
-			that.tel = that.$cookie.get('tel');
-			that.qq = that.$cookie.get('qq');
+			var that = this;			
+			that.email = localStorage.email;
+			that.password = localStorage.password;
+			that.name = localStorage.name;
+			that.tel = localStorage.tel;
+			that.qq = localStorage.qq;
 		},
 		methods: {
 			send(type) {
 				var that = this;
 				if(that.company == '') {
 					that.$Message.info('选择分公司！');
+					that.modal1 = false;
+					that.modal2 = false;
 					return false;
 				} else if(that.email == '') {
 					that.$Message.info('填写发件邮箱！');
+					that.modal1 = false;
+					that.modal2 = false;
 					return false;
 				} else if(that.password == '') {
 					that.$Message.info('填写发件邮箱密码！');
+					
+					that.modal1 = false;
+					that.modal2 = false;
 					return false;
 				} else if(that.cemail == '') {
 					that.$Message.info('填写收件人！');
+					that.modal1 = false;
+					that.modal2 = false;
 					return false;
 				} else if(that.cname == '') {
 					that.$Message.info('填写客户姓名！');
+					that.modal1 = false;
+					that.modal2 = false;
 					return false;
 				} else if(that.name == '') {
 					that.$Message.info('填写设计师名称！');
+					that.modal1 = false;
+					that.modal2 = false;
 					return false;
 				} else if(that.tel == '') {
 					that.$Message.info('填写电话！');
+					that.modal1 = false;
+					that.modal2 = false;
 					return false;
 				} else if(that.qq == '') {
 					that.$Message.info('填写QQ！');
+					that.modal1 = false;
+					that.modal2 = false;
 					return false;
 				}
-				that.show = 'close';
-				that.$cookie.set('email', that.email, 'Tue, 19 Jan 2038 03:14:07 GMT');
-				that.$cookie.set('password', that.password, 'Tue, 19 Jan 2038 03:14:07 GMT');
-				that.$cookie.set('name', that.name, 'Tue, 19 Jan 2038 03:14:07 GMT');
-				that.$cookie.set('tel', that.tel, 'Tue, 19 Jan 2038 03:14:07 GMT');
-				that.$cookie.set('qq', that.qq, 'Tue, 19 Jan 2038 03:14:07 GMT');
+				localStorage.email = that.email;
+				localStorage.password = that.password;
+				localStorage.name = that.name;
+				localStorage.tel = that.tel;
+				localStorage.qq = that.qq;
 
 				that.$http.jsonp('http://wjdh-jiucuo.sxbaiduv.com/api/email/email.php?type=' + type, {
 					params: {
@@ -190,7 +228,8 @@
 					that.cname = "";
 					that.name = "";
 					that.url = "";
-					that.show = 'open';
+					that.modal1 = false;
+					that.modal2 = false;
 					that.$Message.info('发送成功！');
 				}, function(res) {
 

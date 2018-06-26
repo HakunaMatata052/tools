@@ -12,7 +12,7 @@
 <script type="text/javascript">
 	import Header from './home/Header'
 	import Sider from './home/Sider'
-
+	
 	/*import VueRouter from "vue-router";
 	Vue.use(VueRouter);
 

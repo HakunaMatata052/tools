@@ -11,7 +11,7 @@ Vue.config.debug = false;
 Vue.use(iView);
 Vue.use(vueResource);
 Vue.http.options.emulateJSON = true;
-
+import store from './store'
 //Vue.use(VueRouter);
 
 // 定义组件, 也可以像教程之前教的方法从别的文件引入
@@ -48,6 +48,7 @@ const app = new Vue({
 	components: {
 		App
 	},
+	store,
 	template: '<App :userdata="userdata"/>'
 	//render: h => h(App)
 }).$mount('#app');
