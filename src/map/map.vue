@@ -131,13 +131,16 @@
 				win.document.open();
 				win.document.write(that.jieguo);
 				win.document.close();
-			}
+			},
+			create() {
 
+			}
 		},
 		mounted() {
-			window['initialize'] = () => {
-				this.initialize();
+			window['create'] = () => {
+				this.create();
 			};
+
 			const clipboard = new Clipboard('.btn');
 		}
 	}

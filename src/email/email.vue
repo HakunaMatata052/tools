@@ -20,13 +20,17 @@
 						<br>
 						<hr>
 						<br>
-						<Select v-model="company">
-							<Option value="西安动力无限信息科技股份有限公司">西安动力无限信息科技股份有限公司</Option>
-							<Option value="西安万家灯火信息技术有限公司">西安万家灯火信息技术有限公司</Option>
-							<Option value="成都动力无限科技有限公司">成都动力无限科技有限公司</Option>
-							<Option value="河南无限动力软件科技有限公司">河南无限动力软件科技有限公司</Option>
-							<Option value="武汉商讯动力无限信息技术有限公司">武汉商讯动力无限信息技术有限公司</Option>
-						</Select>
+						<Row :gutter="16">
+							<i-col :xs="24">
+								<Select v-model="company">
+									<Option value="西安动力无限信息科技股份有限公司">西安动力无限信息科技股份有限公司</Option>
+									<Option value="西安万家灯火信息技术有限公司">西安万家灯火信息技术有限公司</Option>
+									<Option value="成都动力无限科技有限公司">成都动力无限科技有限公司</Option>
+									<Option value="河南无限动力软件科技有限公司">河南无限动力软件科技有限公司</Option>
+									<Option value="武汉商讯动力无限信息技术有限公司">武汉商讯动力无限信息技术有限公司</Option>
+								</Select>
+							</i-col>
+						</Row>
 						<br>
 						<Input v-model="cname" placeholder="客户名字...">
 						<span slot="prepend">客户公司名称：</span>
@@ -69,13 +73,17 @@
 						<br>
 						<hr>
 						<br>
-						<Select v-model="company">
-							<Option value="西安动力无限信息科技股份有限公司">西安动力无限信息科技股份有限公司</Option>
-							<Option value="西安万家灯火信息技术有限公司">西安万家灯火信息技术有限公司</Option>
-							<Option value="成都动力无限科技有限公司">成都动力无限科技有限公司</Option>
-							<Option value="河南无限动力软件科技有限公司">河南无限动力软件科技有限公司</Option>
-							<Option value="武汉商讯动力无限信息技术有限公司">武汉商讯动力无限信息技术有限公司</Option>
-						</Select>
+						<Row :gutter="16">
+							<i-col :xs="24">
+								<Select v-model="company">
+									<Option value="西安动力无限信息科技股份有限公司">西安动力无限信息科技股份有限公司</Option>
+									<Option value="西安万家灯火信息技术有限公司">西安万家灯火信息技术有限公司</Option>
+									<Option value="成都动力无限科技有限公司">成都动力无限科技有限公司</Option>
+									<Option value="河南无限动力软件科技有限公司">河南无限动力软件科技有限公司</Option>
+									<Option value="武汉商讯动力无限信息技术有限公司">武汉商讯动力无限信息技术有限公司</Option>
+								</Select>
+							</i-col>
+						</Row>
 						<br>
 						<Input v-model="cname" placeholder="客户名字...">
 						<span slot="prepend">客户公司名称：</span>
@@ -104,24 +112,33 @@
 			</i-col>
 		</Row>
 		<Modal v-model="modal1" title="Title" :loading="loading" :mask-closable="false" :closable="false" @on-ok="send('shouye')">
-			<p>客户公司名称：<h3>{{cname}}</h3></p>
+			<p>客户公司名称：
+				<h3>{{cname}}</h3></p>
 			<br>
-			<p>客户负责人称呼：<h3>{{realname}}</h3></p>
+			<p>客户负责人称呼：
+				<h3>{{realname}}</h3></p>
 			<br>
-			<p>客户邮箱：<h3>{{cemail}}</h3></p>
+			<p>客户邮箱：
+				<h3>{{cemail}}</h3></p>
 			<br>
-			<p>效果图链接：<h3><a :href="url">{{url}}</a></h3></p>
+			<p>效果图链接：
+				<h3><a :href="url">{{url}}</a></h3></p>
 			<br>
-			<p><h5>请确认无误后点击确定</h5></p>
+			<p>
+				<h5>请确认无误后点击确定</h5></p>
 		</Modal>
 		<Modal v-model="modal2" title="Title" :loading="loading" :mask-closable="false" :closable="false" @on-ok="send('yaoziliao')">
-			<p>客户公司名称：<h3>{{cname}}</h3></p>
+			<p>客户公司名称：
+				<h3>{{cname}}</h3></p>
 			<br>
-			<p>客户负责人称呼：<h3>{{realname}}</h3></p>
+			<p>客户负责人称呼：
+				<h3>{{realname}}</h3></p>
 			<br>
-			<p>客户邮箱：<h3>{{cemail}}</h3></p>
+			<p>客户邮箱：
+				<h3>{{cemail}}</h3></p>
 			<br>
-			<p><h5>请确认无误后点击确定</h5></p>
+			<p>
+				<h5>请确认无误后点击确定</h5></p>
 		</Modal>
 	</div>
 </template>
@@ -143,14 +160,14 @@
 				tel: '',
 				qq: '',
 				company: '',
-				modal1:false,
-				modal2:false,
+				modal1: false,
+				modal2: false,
 				loading: true
 			}
 		},
 		props: ['userdata'],
 		mounted() {
-			var that = this;			
+			var that = this;
 			that.email = localStorage.email;
 			that.password = localStorage.password;
 			that.name = localStorage.name;
@@ -172,7 +189,7 @@
 					return false;
 				} else if(that.password == '') {
 					that.$Message.info('填写发件邮箱密码！');
-					
+
 					that.modal1 = false;
 					that.modal2 = false;
 					return false;

@@ -2,7 +2,7 @@
 	<div>
 
 		<Card>
-			<Input v-model="domain">
+			<Input v-model="$store.state.domain">
 			<Select v-model="company" slot="prepend" style="width: 80px">
 				<Option value="0">西安</Option>
 				<Option value="1">成都</Option>
@@ -25,7 +25,7 @@
 				<i-col :xs="24" :sm="18" :md="18">
 					<Card>
 						公司名称：
-						<h1><a :href="'http://'+domain" target="_blank">{{jieguo.companyname}}</a></h1>
+						<h1><a :href="'http://'+$store.state.domain" target="_blank">{{jieguo.companyname}}</a></h1>
 						<br> (如果公司名称不对或未显示，请重新查询！)
 					</Card>
 				</i-col>
@@ -178,7 +178,7 @@
 							<Icon type="ios-film-outline "></Icon>
 							杂项分析
 						</p>
-						<iframe id="mainframe" name="mainframe" frameborder="0" :src="'http://'+domain+'/m'" width="425" height="667" style="margin: auto;"></iframe>
+						<iframe id="mainframe" name="mainframe" frameborder="0" :src="'http://'+$store.state.domain+'/m'" width="425" height="667" style="margin: auto;"></iframe>
 					</Card>
 				</i-col>
 			</Row>
@@ -191,7 +191,6 @@
 	export default {
 		data() {
 			return {
-				domain: '',
 				company: '0',
 				jieguo: '',
 				score: '',
@@ -202,12 +201,12 @@
 		methods: {
 			zhaocha() {
 				var that = this;
-				that.domain = that.domain.replace('http://','')
+				that.$store.state.domain = that.$store.state.domain.replace('http://','')
 				that.loading = 1;
 				that.score = 100;
 				let contentjson = {};
 				contentjson.code = '0';
-				that.$http.jsonp('http://wjdh-jiucuo.sxbaiduv.com/api.php?domain=' + that.domain + '&company=' + that.company).then(function(res) {
+				that.$http.jsonp('http://wjdh-jiucuo.sxbaiduv.com/api.php?domain=' + that.$store.state.domain + '&company=' + that.company).then(function(res) {
 					var content = res.body.data;
 					content = content.replace(/\r\n/g, "")
 					content = content.replace(/\n/g, "");

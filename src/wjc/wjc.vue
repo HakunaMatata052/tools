@@ -2,7 +2,7 @@
 	<div>
 
 		<Card>
-			<Input v-model="domain">
+			<Input v-model="$store.state.domain">
 			<span slot="prepend">http://</span>
 			<Button slot="append" icon="ios-search" @click="zhaocha"></Button>
 			</Input>
@@ -23,7 +23,6 @@
 	export default {
 		data() {
 			return {
-				domain: '',
 				jieguo: '',
 				score: '',
 				show: 0,
@@ -37,7 +36,7 @@
 				that.score = 100;
 				let contentjson = {};
 				contentjson.code = '0';
-				that.$http.jsonp('http://wjdh-jiucuo.sxbaiduv.com/api.php?domain=' + that.domain + '&company=' + that.company).then(function(res) {
+				that.$http.jsonp('http://wjdh-jiucuo.sxbaiduv.com/api.php?domain=' + that.$store.state.domain + '&company=' + that.company).then(function(res) {
 					var content = res.body.data;
 					content = content.replace(/\r\n/g, "")
 					content = content.replace(/\n/g, "");
