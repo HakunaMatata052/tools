@@ -130,6 +130,10 @@
 									<td>H3标签:</td>
 									<td v-html="jieguo.h3 "></td>
 								</tr>
+								<tr v-if="jieguo.h3num!=undefined && jieguo.h3num.length!=0">
+									<td></td>
+									<td v-html="jieguo.h3num"></td>
+								</tr>
 								<tr>
 									<td>强调标签:</td>
 									<td v-html="jieguo.qdbq "></td>
@@ -504,7 +508,7 @@
 						contentjson.h3num = h3numlist;
 						if(nh3a > 0) {
 							//$("#h3").html('<div class="alert alert-warning" role="alert">页面中共有<span class="badge">' + nh3a + '</span>个栏目下没有链接&nbsp;&nbsp;<a data-toggle="collapse" data-parent="#accordion" href="#h3list"><b class="text-warning">点击查看</b></a></div>')
-							contentjson.h3 = '<div class="alert alert-warning" role="alert">页面中共有<span class="badge">' + nh3a + '</span>个栏目下没有链接&nbsp;&nbsp;<a data-toggle="collapse" data-parent="#accordion" href="#h3list"><b class="text-warning">点击查看</b></a></div>';
+							contentjson.h3 = '<div class="alert alert-warning" role="alert">页面中共有<span class="badge">' + nh3a + '</span>个栏目下没有链接</div>';
 						} else {
 							//$("#h3").html('<div class="alert alert-success" role="alert">栏目下都有链接</div>');
 							contentjson.h3 = '<div class="alert alert-success" role="alert">栏目下都有链接</div>';

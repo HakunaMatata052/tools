@@ -12,6 +12,7 @@
 					<MenuItem name="1-3"><router-link to="/zhaocha">找茬工具</router-link></MenuItem>
 					<MenuItem name="1-3"><router-link to="/wjc">违禁词</router-link></MenuItem>
 					<MenuItem name="1-3"><router-link to="/email">发邮件</router-link></MenuItem>
+					<MenuItem name="1-3"><router-link to="/map">百度地图生成器</router-link></MenuItem>
 				</Submenu>
 				<Submenu name="2">
 					<template slot="title">
@@ -61,5 +62,7 @@ export default {
 <style>
 .ivu-menu-item a {
 	display: block;
+	width: 100%;
+	height: 100%;
 }
 </style>

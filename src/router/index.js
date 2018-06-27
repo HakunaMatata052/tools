@@ -15,6 +15,8 @@ var wjc = r => require.ensure([], () => r(require('../wjc/Wjc')), 'wjc');
 var network = r => require.ensure([], () => r(require('../network/Network')), 'network');
 var email = r => require.ensure([], () => r(require('../email/Email')), 'email');
 
+var baidumap = r => require.ensure([], () => r(require('../map/Map')), 'map');
+
 //import Tools from '../home/Tools'
 //import List from '../list/List'
 //
@@ -61,6 +63,10 @@ const router = new VueRouter({
 		{
 			path: '/email',
 			component: email
+		},
+		{
+			path: '/map',
+			component: baidumap
 		}
 	]
 })

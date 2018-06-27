@@ -13,10 +13,13 @@
 		</p>
 		<br>
 		<p>
-			<Input v-model="ip" id="foo">
+			<Input v-model="ip">
 			<Button slot="append" class="btn" data-clipboard-target="#foo">复制</Button>
 			</Input>
+
 		</p>
+
+		<textarea :value="ip+'\n'+domain+'\nFTP'" id="foo" style="position: absolute;opacity: 0;"></textarea>
 	</Card>
 </template>
 
@@ -32,6 +35,12 @@
 		methods: {
 			getip() {
 				var that = this;
+				if(that.domain.indexOf('http')!=-1){
+					that.domain = that.domainURI(that.domain);
+				}else {
+					that.domain = that.domainURI2(that.domain);
+				}
+				
 				if(that.domain == 0) {
 					that.$Message.info('没有内容！');
 					return false
@@ -41,6 +50,16 @@
 				}, function(res) {
 
 				});
+			},
+			domainURI(str) {
+				var durl = /http:\/\/([^\/]+)\//i;
+				var domain = str.match(durl);
+				return domain[1];
+			},
+			domainURI2(str) {
+				var durl = /([^\/]+)\//i;
+				var domain = str.match(durl);
+				return domain[1];
 			}
 		},
 		mounted() {
