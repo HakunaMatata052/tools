@@ -140,7 +140,6 @@
 			window['create'] = () => {
 				this.create();
 			};
-
 			const clipboard = new Clipboard('.btn');
 		}
 	}

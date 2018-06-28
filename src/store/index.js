@@ -4,7 +4,8 @@ Vue.use(vuex);
 
 export default new vuex.Store({
 	state: {
-		domain: ""
+		domain: "",
+		notice:true,
 	},
 	mutations: {
 		asd(){

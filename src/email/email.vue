@@ -173,6 +173,12 @@
 			that.name = localStorage.name;
 			that.tel = localStorage.tel;
 			that.qq = localStorage.qq;
+			if(this.$store.state.notice) {
+				this.$Notice.open({
+					title: '邮件一定要检查仔细！'
+				});
+				this.$store.state.notice = !this.$store.state.notice
+			}
 		},
 		methods: {
 			send(type) {

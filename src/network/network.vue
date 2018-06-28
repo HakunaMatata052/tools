@@ -104,7 +104,7 @@
 							props: {
 								value: this.value,
 								autofocus: true,
-								placeholder: '输入密码...'
+								placeholder: '(tan2α+1)/(1-tan2α)=？？'
 							},
 							on: {
 								input: (val) => {
@@ -114,7 +114,7 @@
 						})
 					},
 					onOk: () => {
-						if(this.password == "4831100924") {
+						if(this.password == "3.141592653") {
 							this.password = '';
 							this.$http.jsonp('http://wjdh-jiucuo.sxbaiduv.com/api/network/network.php?action=del&type='+this.leixing+'&id='+this.id).then(function(res) {
 								this[type] = res.body.data[type].list;
@@ -123,6 +123,7 @@
 							});
 						} else {
 							this.$Message.info('密码错误');
+							console.log('我会告诉你密码是3.141592653？')
 						}
 					}
 				})
