@@ -201,7 +201,8 @@
 		methods: {
 			zhaocha() {
 				var that = this;
-				that.$store.state.domain = that.$store.state.domain.replace('http://','')
+				that.$store.state.domain = that.$store.state.domain.replace('http://','');
+				that.$store.state.domain = that.$store.state.domain.replace(/(^\s*)|(\s*$)/g, "");
 				that.loading = 1;
 				that.score = 100;
 				let contentjson = {};
