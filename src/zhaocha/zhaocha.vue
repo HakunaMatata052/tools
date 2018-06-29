@@ -2,7 +2,7 @@
 	<div>
 
 		<Card>
-			<Input v-model="$store.state.domain">
+			<Input v-model="$store.state.domain" @on-focus="reset">
 			<Select v-model="company" slot="prepend" style="width: 80px">
 				<Option value="0">西安</Option>
 				<Option value="1">成都</Option>
@@ -11,7 +11,7 @@
 				<Option value="4">远景</Option>
 			</Select>
 			<span slot="prepend">http://</span>
-			<Button slot="append" icon="ios-search" @click="zhaocha"></Button>
+			<Button slot="append" icon="ios-search" @click="zhaocha" type="submit"></Button>
 			</Input>
 
 		</Card>
@@ -198,7 +198,18 @@
 				loading: 0
 			}
 		},
+		directives: {
+			focus: {
+				// 指令的定义
+				inserted: function(el) {
+					el.focus()
+				}
+			}
+		},
 		methods: {
+			reset() {
+				this.$store.state.domain = ""
+			},
 			zhaocha() {
 				var that = this;
 				that.$store.state.domain = that.domainURI(that.$store.state.domain);
@@ -568,15 +579,15 @@
 						}
 					}
 					//语义标签
-					function qdbq(){
+					function qdbq() {
 						var qdbqcon = '';
 						var emnum = $('em').length;
 						var strongnum = $('strong').length;
-						if(emnum>0){
-							qdbqcon+='<div class="alert alert-danger">页面还有&lt;em&gt;标签</div>'
-						}else if(strongnum>0){
-							qdbqcon+='<div class="alert alert-danger">页面还有&lt;strong&gt;标签</div>'
-						}else {
+						if(emnum > 0) {
+							qdbqcon += '<div class="alert alert-danger">页面还有&lt;em&gt;标签</div>'
+						} else if(strongnum > 0) {
+							qdbqcon += '<div class="alert alert-danger">页面还有&lt;strong&gt;标签</div>'
+						} else {
 							qdbqcon = '<div class="alert alert-success">页面还有不含有强调标签</div>'
 						}
 						contentjson.qdbq = qdbqcon;
@@ -750,13 +761,13 @@
 				});
 			},
 			domainURI(str) {
-				str = str.replace('http://','');
-				str = str.replace('https://','');
+				str = str.replace('http://', '');
+				str = str.replace('https://', '');
 				var durl = /^((http:\/\/)|(https:\/\/))?([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}/gi;
 				var domain = str.match(durl);
-				if(domain==null){
+				if(domain == null) {
 					return str;
-				}else{					
+				} else {
 					return domain[0];
 				}
 			}
