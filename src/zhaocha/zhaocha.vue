@@ -201,8 +201,7 @@
 		methods: {
 			zhaocha() {
 				var that = this;
-				that.$store.state.domain = that.$store.state.domain.replace('http://','');
-				that.$store.state.domain = that.$store.state.domain.replace(/(^\s*)|(\s*$)/g, "");
+				that.$store.state.domain = that.domainURI(that.$store.state.domain);
 				that.loading = 1;
 				that.score = 100;
 				let contentjson = {};
@@ -749,6 +748,17 @@
 				}, function(res) {
 
 				});
+			},
+			domainURI(str) {
+				str = str.replace('http://','');
+				str = str.replace('https://','');
+				var durl = /^((http:\/\/)|(https:\/\/))?([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}/gi;
+				var domain = str.match(durl);
+				if(domain==null){
+					return str;
+				}else{					
+					return domain[0];
+				}
 			}
 		}
 	}

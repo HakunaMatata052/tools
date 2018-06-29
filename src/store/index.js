@@ -5,14 +5,13 @@ Vue.use(vuex);
 export default new vuex.Store({
 	state: {
 		domain: "",
-		notice:true,
+		notice: true,
 	},
 	mutations: {
-		asd(){
-			function initialize() {
-				var mp = new BMap.Map('map');
-				mp.centerAndZoom(new BMap.Point(121.491, 31.233), 11);
-			}
+		domainURI(url) {
+			var durl = /http:\/\/([^\/]+)\//i;
+			var domain = url.match(durl);
+			return domain[1];
 		}
 	}
 })

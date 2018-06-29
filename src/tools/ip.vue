@@ -35,12 +35,7 @@
 		methods: {
 			getip() {
 				var that = this;
-				if(that.domain.indexOf('http')!=-1){
-					that.domain = that.domainURI(that.domain);
-				}else {
-					that.domain = that.domainURI2(that.domain);
-				}
-				
+				that.domain = that.domainURI(that.domain);
 				if(that.domain == 0) {
 					that.$Message.info('没有内容！');
 					return false
@@ -52,14 +47,15 @@
 				});
 			},
 			domainURI(str) {
-				var durl = /http:\/\/([^\/]+)\//i;
+				str = str.replace('http://','');
+				str = str.replace('https://','');
+				var durl = /^((http:\/\/)|(https:\/\/))?([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}/gi;
 				var domain = str.match(durl);
-				return domain[1];
-			},
-			domainURI2(str) {
-				var durl = /([^\/]+)\//i;
-				var domain = str.match(durl);
-				return domain[1];
+				if(domain==null){
+					return str;
+				}else{					
+					return domain[0];
+				}
 			}
 		},
 		mounted() {
