@@ -64,7 +64,7 @@
 						//alert("（没有违禁词）") ;
 						return false;
 					} else {
-						that.$Message.info('共有' + result2.length + '个违禁词a ！');
+						that.$Message.info('共有' + result2.length + '个违禁词 ！');
 						for(var i = 0; i < result2.length; ++i) {
 							var ste = ar[i];
 							//alert(ste)

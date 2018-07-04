@@ -32,10 +32,10 @@
 							</i-col>
 						</Row>
 						<br>
-						<Input v-model="cname" placeholder="客户名字...">
+						<Input v-model="cname" placeholder="客户公司名称...">
 						<span slot="prepend">客户公司名称：</span>
 						</Input><br>
-						<Input v-model="realname" placeholder="客户名字...">
+						<Input v-model="realname" placeholder="客户姓名...">
 						<span slot="prepend">客户姓名：</span>
 						</Input><br>
 						<Input v-model="cemail" placeholder="客户邮箱...">
@@ -44,10 +44,10 @@
 						<Input v-model="name" placeholder="你的名字...">
 						<span slot="prepend">设 计 师：</span>
 						</Input><br>
-						<Input v-model="tel" placeholder="电话...">
+						<Input v-model="tel" placeholder="你的电话...">
 						<span slot="prepend">联系电话：</span>
 						</Input><br>
-						<Input v-model="qq" placeholder="qq...">
+						<Input v-model="qq" placeholder="你的qq...">
 						<span slot="prepend">Q   Q：</span>
 						</Input><br>
 						<Button type="success" long @click="modal2 = true">发送</Button>
@@ -85,10 +85,10 @@
 							</i-col>
 						</Row>
 						<br>
-						<Input v-model="cname" placeholder="客户名字...">
+						<Input v-model="cname" placeholder="客户公司名称...">
 						<span slot="prepend">客户公司名称：</span>
 						</Input><br>
-						<Input v-model="realname" placeholder="客户名字...">
+						<Input v-model="realname" placeholder="客户姓名...">
 						<span slot="prepend">客户姓名：</span>
 						</Input><br>
 						<Input v-model="cemail" placeholder="客户邮箱...">
@@ -100,10 +100,10 @@
 						<Input v-model="url" placeholder="效果图链接...">
 						<span slot="prepend">效果图链接：</span>
 						</Input><br>
-						<Input v-model="tel" placeholder="电话...">
+						<Input v-model="tel" placeholder="你的电话...">
 						<span slot="prepend">联系电话：</span>
 						</Input><br>
-						<Input v-model="qq" placeholder="qq...">
+						<Input v-model="qq" placeholder="你的qq...">
 						<span slot="prepend">Q   Q：</span>
 						</Input><br>
 						<Button type="success" long @click="modal1 = true">发送</Button>

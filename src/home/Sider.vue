@@ -17,6 +17,9 @@
 					<router-link to="/zhaocha">找茬工具</router-link>
 					</MenuItem>
 					<MenuItem name="1-3">
+					<router-link to="/viewzhaocha">找茬工具(可视化)</router-link>
+					</MenuItem>
+					<MenuItem name="1-3">
 					<router-link to="/wjc">违禁词</router-link>
 					</MenuItem>
 					<MenuItem name="1-3">
@@ -30,7 +33,12 @@
 					<template slot="title">
 						<Icon type="ios-keypad"></Icon>
 						素材
-					</template>
+					</template>					
+					<MenuItem name="2-1">
+						<router-link to="/template">
+							模板
+						</router-link>
+					</MenuItem>
 					<MenuItem name="2-1">banner</MenuItem>
 					<MenuItem name="2-2">滚动</MenuItem>
 				</Submenu>

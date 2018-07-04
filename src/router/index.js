@@ -11,11 +11,17 @@ var customer = r => require.ensure([], () => r(require('../speak/Customer')), 'c
 
 var zhaocha = r => require.ensure([], () => r(require('../zhaocha/Zhaocha')), 'zhaocha');
 
+var viewzhaocha = r => require.ensure([], () => r(require('../zhaocha/Viewzhaocha')), 'viewzhaocha');
+
 var wjc = r => require.ensure([], () => r(require('../wjc/Wjc')), 'wjc');
 var network = r => require.ensure([], () => r(require('../network/Network')), 'network');
 var email = r => require.ensure([], () => r(require('../email/Email')), 'email');
 
 var baidumap = r => require.ensure([], () => r(require('../map/Map')), 'map');
+
+var mobile = r => require.ensure([], () => r(require('../mobile/Mobile')), 'mobile');
+
+var template = r => require.ensure([], () => r(require('../template/Template')), 'template');
 
 //import Tools from '../home/Tools'
 //import List from '../list/List'
@@ -49,6 +55,10 @@ const router = new VueRouter({
 			component: zhaocha
 		},
 		{
+			path: '/viewzhaocha',
+			component: viewzhaocha
+		},
+		{
 			path: '/wjc',
 			component: wjc
 		},
@@ -67,6 +77,14 @@ const router = new VueRouter({
 		{
 			path: '/map',
 			component: baidumap
+		},
+		{
+			path: '/mobile',
+			component: mobile
+		},
+		{
+			path: '/template',
+			component: template
 		}
 	]
 })

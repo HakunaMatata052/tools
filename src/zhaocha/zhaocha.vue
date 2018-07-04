@@ -11,7 +11,7 @@
 				<Option value="4">远景</Option>
 			</Select>
 			<span slot="prepend">http://</span>
-			<Button slot="append" icon="ios-search" @click="zhaocha" type="submit"></Button>
+			<Button slot="append" icon="ios-search" @click="zhaocha"></Button>
 			</Input>
 
 		</Card>
@@ -176,9 +176,9 @@
 					<Card>
 						<p slot="title ">
 							<Icon type="ios-film-outline "></Icon>
-							杂项分析
+							手机站
 						</p>
-						<iframe id="mainframe" name="mainframe" frameborder="0" :src="'http://'+$store.state.domain+'/m'" width="425" height="667" style="margin: auto;"></iframe>
+						<iframe id="mainframe" name="mainframe" frameborder="0" :src="'http://'+that.domainURI(that.$store.state.domain)+'/m'" width="425" height="667" style="margin: auto;"></iframe>
 					</Card>
 				</i-col>
 			</Row>
@@ -208,7 +208,7 @@
 		},
 		methods: {
 			reset() {
-				this.$store.state.domain = ""
+				this.$store.state.domain = "";
 			},
 			zhaocha() {
 				var that = this;
@@ -218,7 +218,7 @@
 				let contentjson = {};
 				contentjson.code = '0';
 				that.$http.jsonp('http://wjdh-jiucuo.sxbaiduv.com/api.php?domain=' + that.$store.state.domain + '&company=' + that.company).then(function(res) {
-					var content = res.body.data;
+					var content = res.body.data;				
 					content = content.replace(/\r\n/g, "")
 					content = content.replace(/\n/g, "");
 					content = content.replace(/<!DOCTYPE.*?>/gi, '<div class="body">');
