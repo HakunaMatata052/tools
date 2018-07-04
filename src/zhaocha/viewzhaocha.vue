@@ -19,169 +19,8 @@
 			<Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
 			<div>Loading</div>
 		</Spin>
-		<div v-if="show">
-			<br>
-			<Row :gutter="16">
-				<i-col :xs="24" :sm="18" :md="18">
-					<Card>
-						公司名称：
-						<h1><a :href="'http://'+$store.state.domain" target="_blank">{{jieguo.companyname}}</a></h1>
-						<br> (如果公司名称不对或未显示，请重新查询！)
-					</Card>
-				</i-col>
-				<i-col :xs="24 " :sm="6 " :md="6 ">
-					<Card>
-						<h1>网站得分：{{score}}</h1>
-					</Card>
-				</i-col>
-			</Row>
-			<br>
-			<Row :gutter="16">
-				<i-col :xs="24" :sm="24" :md="24">
-					<Card>
-						<p slot="title">基础三项：</p>
-						<table>
-							<tbody>
-								<tr>
-									<th width="20%"></th>
-									<th></th>
-								</tr>
-								<tr>
-									<td>网站标题：</td>
-									<td>{{jieguo.title}}</td>
-								</tr>
-								<tr>
-									<td>网站描述：</td>
-									<td>{{jieguo.description}}</td>
-								</tr>
-								<tr>
-									<td>网站关键词：</td>
-									<td v-html="jieguo.keywords"></td>
-								</tr>
-							</tbody>
-						</table>
-					</Card>
-				</i-col>
-			</Row>
-			<br>
-			<Row :gutter="16">
-				<i-col :xs="24" :sm="24" :md="12">
-					<Card>
-						<p slot="title">
-							<Icon type="ios-film-outline"></Icon>
-							链接与图片
-						</p>
-						<h3 v-if="jieguo.nlink!=0">链接中没有title属性的有：{{jieguo.nlink}}个</h3>
-						<Alert type="error" v-if="jieguo.titlenum!=undefined && jieguo.titlenum.length!=0">
-							<ul v-html="jieguo.titlenum">
-							</ul>
-						</Alert>
-
-						<h3 v-if="jieguo.elink!=0">链接中title属性可能错误的有：{{jieguo.elink}}个</h3>
-						<Alert type="error" v-if="jieguo.etitlenum!=undefined && jieguo.etitlenum.length!=0">
-							<ul v-html="jieguo.etitlenum">
-							</ul>
-						</Alert>
-
-						<h3 v-if="jieguo.titlebpp!=0">链接中title属性与内容不匹配的有(仅注意即可不一定需要修改)：{{jieguo.titlebpp}}个</h3>
-						<Alert type="error" v-if="jieguo.titlebppnum!=undefined && jieguo.titlebppnum.length!=0">
-							<ul v-html="jieguo.titlebppnum">
-							</ul>
-						</Alert>
-
-						<h3 v-if="jieguo.nalt!=0">图片中没有alt和title属性的有：{{jieguo.nalt}}个</h3>
-						<Alert type="error" v-if="jieguo.altnum!=undefined && jieguo.altnum.length!=0">
-							<ul v-html="jieguo.altnum">
-							</ul>
-						</Alert>
-
-						<h3 v-if="jieguo.errorlink!=0">网页中有错误链接：{{jieguo.errorlink}}</h3>
-						<Alert type="error" v-if="jieguo.errorlinknum!=undefined && jieguo.errorlinknum.length!=0">
-							<ul v-html="jieguo.errorlinknum">
-							</ul>
-						</Alert>
-					</Card>
-				</i-col>
-				<i-col :xs="24 " :sm="24" :md="12 ">
-					<Card>
-						<p slot="title ">
-							<Icon type="ios-film-outline "></Icon>
-							杂项分析
-						</p>
-						<table>
-							<tbody>
-								<tr>
-									<th width="30%"></th>
-									<th></th>
-								</tr>
-								<tr>
-									<td>技术支持是否正确：</td>
-									<td v-html="jieguo.technical"></td>
-								</tr>
-								<tr>
-									<td>H1标签数量：</td>
-									<td v-html="jieguo.h1num "></td>
-								</tr>
-								<tr>
-									<td>H2标签数量：</td>
-									<td v-html="jieguo.h2num "></td>
-								</tr>
-								<tr>
-									<td>H3标签:</td>
-									<td v-html="jieguo.h3 "></td>
-								</tr>
-								<tr v-if="jieguo.h3num!=undefined && jieguo.h3num.length!=0">
-									<td></td>
-									<td v-html="jieguo.h3num"></td>
-								</tr>
-								<tr>
-									<td>强调标签:</td>
-									<td v-html="jieguo.qdbq "></td>
-								</tr>
-								<tr>
-									<td>网站立即咨询的qq号为：</td>
-									<td v-html="jieguo.qq "></td>
-								</tr>
-								<tr>
-									<td>网站出现程序代码：</td>
-									<td v-html="jieguo.program "></td>
-								</tr>
-
-								<tr>
-									<td>rel="external nofollow "是否正确：</td>
-									<td v-html="jieguo.rel "></td>
-								</tr>
-
-								<tr>
-									<td></td>
-									<td v-html="jieguo.rellist"></td>
-								</tr>
-								<tr v-if="0">
-									<td>企业商铺链接是否正确：</td>
-									<td v-html="jieguo.qysp"></td>
-								</tr>
-
-								<tr>
-									<td>三张banner的title为：</td>
-									<td v-html="jieguo.bannertitle"></td>
-								</tr>
-								<tr>
-									<td>三张banner的链接为： </td>
-									<td v-html="jieguo.bannerhref"></td>
-								</tr>
-
-							</tbody>
-						</table>
-					</Card>
-					<Card>
-						<p slot="title ">
-							<Icon type="ios-film-outline "></Icon>
-							手机站
-						</p>
-						<iframe id="mainframe" name="mainframe" frameborder="0" :src="'http://'+that.domainURI(that.$store.state.domain)+'/m'" width="425" height="667" style="margin: auto;"></iframe>
-					</Card>
-				</i-col>
-			</Row>
+		<div>
+			<iframe id="frame" name="frame" frameborder="0" style="width:100%;"></iframe>
 		</div>
 	</div>
 </template>
@@ -206,6 +45,24 @@
 				}
 			}
 		},
+		mounted() {
+			window['ishow'] = () => {
+				this.ishow();
+			}
+			setheight();
+			var height = 0;
+			function setheight(){
+				height = $(window).height()-160;
+				$('#frame').css({
+					"height":height
+				});
+				this.ishow()
+			}
+			
+			$(window).resize(function(){
+				setheight();
+			})
+		},
 		methods: {
 			reset() {
 				this.$store.state.domain = "";
@@ -214,21 +71,50 @@
 				var that = this;
 				that.$store.state.domain = that.domainURI(that.$store.state.domain);
 				that.loading = 1;
-				that.score = 100;
-				let contentjson = {};
-				contentjson.code = '0';
 				that.$http.jsonp('http://wjdh-jiucuo.sxbaiduv.com/api.php?action=view&domain=' + that.$store.state.domain + '&company=' + that.company).then(function(res) {
-				var content = res.body.data;
-				var win = window.open('', '地图', 'width=800,height=500');
-				win.document.open();
-				$(win).find('.logo').remove();
-				win.document.write(content);
-				win.document.close();
-				
-					
+					var content = res.body.data;
+					var newcon = $('<html/>').html(content);
+					$(newcon).append('<script>parent.ishow()<\/script>');
+					document.getElementById('frame').contentWindow.document.write(newcon.html());
+					that.loading = 0;
 				}, function(res) {
 
 				});
+			},
+			ishow(){
+				var parent = $(window.frames["frame"].document);
+				parent.find('a').each(function(){
+					var width = $(this).width();
+					var height = $(this).height();
+					var top = $(this).offset().top;
+					var left = $(this).offset().left;
+					parent.find('body').append('<div style="position: absolute;left:'+left+';top:'+top+';width:'+width+';height:'+height+';border: 2px dashed red;"></div>')
+				});
+				
+				parent.find('h1').each(function(){
+					var width = $(this).width();
+					var height = $(this).height();
+					var top = $(this).offset().top;
+					var left = $(this).offset().left;
+					parent.find('body').append('<div style="position: absolute;left:'+left+';top:'+top+';width:'+width+';height:'+height+';background:rgba(0,255,0,.6)"></div>')
+				});
+				
+				parent.find('h2').each(function(){
+					var width = $(this).width();
+					var height = $(this).height();
+					var top = $(this).offset().top;
+					var left = $(this).offset().left;
+					parent.find('body').append('<div style="position: absolute;left:'+left+';top:'+top+';width:'+width+';height:'+height+';border: 2px dashed #8bda00;"></div>')
+				});
+				
+				parent.find('h3').each(function(){
+					var width = $(this).width();
+					var height = $(this).height();
+					var top = $(this).offset().top;
+					var left = $(this).offset().left;
+					parent.find('body').append('<div style="position: absolute;left:'+left+';top:'+top+';width:'+width+';height:'+height+';background:rgba(255,0,0,.6)"></div>')
+				});
+				
 			},
 			domainURI(str) {
 				str = str.replace('http://', '');
