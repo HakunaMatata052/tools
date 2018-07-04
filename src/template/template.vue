@@ -1,8 +1,10 @@
 <template>
+<div class="more">
+fsdf asfd
+</div>
 </template>
 
-<script>
-</script>
 
 <style>
+.more{color:#f00;}
 </style>
