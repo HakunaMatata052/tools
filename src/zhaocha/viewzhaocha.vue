@@ -56,7 +56,7 @@
 				$('#frame').css({
 					"height":height
 				});
-				this.ishow()
+				//this.ishow()
 			}
 			
 			$(window).resize(function(){
@@ -83,6 +83,16 @@
 			},
 			ishow(){
 				var parent = $(window.frames["frame"].document);
+				
+				parent.find('img').each(function(){
+					var width = $(this).width();
+					var height = $(this).height();
+					var top = $(this).offset().top;
+					var left = $(this).offset().left;
+					parent.find('body').append('<div style="position: absolute;left:'+left+';top:'+top+';width:'+width+';height:'+height+';background:rgba(0,0,0,.6);border: 3px dashed #000;"></div>')
+				});
+				
+				
 				parent.find('a').each(function(){
 					var width = $(this).width();
 					var height = $(this).height();
