@@ -18,6 +18,14 @@
 							</i-col>
 						</Row>
 						<br>
+						<Row :gutter="16">
+							<i-col :xs="24">
+								<Input v-model="csemail" placeholder="抄送邮箱...">
+								<span slot="prepend">抄送邮箱：</span>
+								</Input>
+							</i-col>
+						</Row>
+						<br>
 						<hr>
 						<br>
 						<Row :gutter="16">
@@ -71,6 +79,15 @@
 							</i-col>
 						</Row>
 						<br>
+						
+						<Row :gutter="16">
+							<i-col :xs="24">
+								<Input v-model="csemail" placeholder="抄送邮箱...">
+								<span slot="prepend">抄送邮箱：</span>
+								</Input>
+							</i-col>
+						</Row>
+						<br>
 						<hr>
 						<br>
 						<Row :gutter="16">
@@ -111,7 +128,7 @@
 				</Card>
 			</i-col>
 		</Row>
-		<Modal v-model="modal1" title="Title" :loading="loading" :mask-closable="false" :closable="false" @on-ok="send('shouye')">
+		<Modal v-model="modal1" title="Title" :loading="loading" :mask-closable="false" :closable="false" @on-ok="send('HomePage')">
 			<p>客户公司名称：
 				<h3>{{cname}}</h3></p>
 			<br>
@@ -127,7 +144,7 @@
 			<p>
 				<h5>请确认无误后点击确定</h5></p>
 		</Modal>
-		<Modal v-model="modal2" title="Title" :loading="loading" :mask-closable="false" :closable="false" @on-ok="send('yaoziliao')">
+		<Modal v-model="modal2" title="Title" :loading="loading" :mask-closable="false" :closable="false" @on-ok="send('NeedData')">
 			<p>客户公司名称：
 				<h3>{{cname}}</h3></p>
 			<br>
@@ -152,6 +169,7 @@
 			return {
 				email: '',
 				password: '',
+				csemail:'',
 				cemail: '',
 				cname: '',
 				realname: '',
@@ -170,6 +188,7 @@
 			var that = this;
 			that.email = localStorage.email;
 			that.password = localStorage.password;
+			that.csemail = localStorage.csemail;
 			that.name = localStorage.name;
 			that.tel = localStorage.tel;
 			that.qq = localStorage.qq;
@@ -225,37 +244,55 @@
 					that.modal2 = false;
 					return false;
 				}
+				if(type=="HomePage"){
+					if(that.url==""){
+						that.$Message.info('填写效果图地址！');
+						that.modal1 = false;
+						that.modal2 = false;
+						return false;
+					}
+				}
 				localStorage.email = that.email;
 				localStorage.password = that.password;
+				localStorage.csemail = that.csemail;
 				localStorage.name = that.name;
 				localStorage.tel = that.tel;
 				localStorage.qq = that.qq;
-
-				that.$http.jsonp('http://wjdh-jiucuo.sxbaiduv.com/api/email/email.php?type=' + type, {
+				that.$http.get('http://wjdh03.sjgogo.cn/api/EmailHandler.ashx', {
 					params: {
-						company: that.company,
-						email: that.email,
-						password: that.password,
-						realname: that.realname,
-						cemail: that.cemail,
-						cname: that.cname,
-						name: that.name,
-						url: that.url,
-						tel: that.tel,
-						qq: that.qq
+						action:type,
+						token:'57373A7E05CB44079B2F12C14A5E83A9',
+						copyemail:that.csemail,
+						Send_emialBtoe: that.company,
+						Send_emialAddress: that.email,
+						Send_emialPassword: that.password,
+						Send_emialName: that.realname,
+						Send_emial: that.cemail,
+						Send_emialCompany: that.cname,
+						Send_emialDesigner: that.name,
+						Send_emialWebUrl: that.url,
+						Send_emiaTel: that.tel,
+						Send_emialQQ: that.qq
 					}
 				}).then(function(res) {
-					that.company = ""
-					that.cemail = "";
-					that.realname = "";
-					that.cname = "";
-					that.name = "";
-					that.url = "";
+					if(res.body.code == 0) {
+//						that.company = ""
+//						that.cemail = "";
+//						that.realname = "";
+//						that.cname = "";
+						that.modal1 = false;
+						that.modal2 = false;
+						that.$Message.info(res.body.msg);
+					} else {
+						that.modal1 = false;
+						that.modal2 = false;
+						that.$Message.info(res.body.msg);
+					}
+
+				}, function(res) {
 					that.modal1 = false;
 					that.modal2 = false;
-					that.$Message.info('发送成功！');
-				}, function(res) {
-
+					that.$Message.info('发送失败！');
 				});
 
 			}
