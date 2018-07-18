@@ -105,6 +105,10 @@
 	<div class="mb_bq">
 		西安动力无限信息科技股份有限公司  ©  版权所有
 	</div>
+	<div class="tc_box">
+		<a href="#" title=""><img src="../assets/close.png" /></a>
+		<img src="../assets/tc.jpg" />
+	</div>
 </div>
 </template>
 
@@ -142,4 +146,9 @@
 .mbtj_box ul li .mbtj_list .mbtj_wz2 span{ font-size: 13px; color: #999; }
 .mbtj_more a{ display:block; width: 140px; height: 35px; border: 1px solid #ddd; font-size: 15px; color: #000; margin: 30px auto; text-align: center; line-height: 35px; border-radius: 5px;}
 .mb_bq{ height: 50px; line-height: 50px; text-align: center; background: #aaa; color: #fff; }
+
+
+.tc_box{ position: absolute; width: 1200px; margin-left: -500px; top: 120px; left: 50%; background: #fff; padding: 20px; box-shadow: 0px 0px 5px #aaa;}
+.tc_box img{ max-width: 100%; min-height: 100%; }
+.tc_box a{ display: block; position: absolute;  top: -15px; right: -15px; width: 30px; height: 30px;}
 </style>
