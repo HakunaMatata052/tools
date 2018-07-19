@@ -176,7 +176,7 @@
 		}
 	}
 </script>
-<style>
+<style scoped>
 	.ivu-layout-content {
 		padding: 0!important;
 	}
