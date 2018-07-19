@@ -115,46 +115,6 @@
 					title: "通栏-资讯列表",
 					img:"https://ubmcmm.baidustatic.com/media/v1/0f000Q1oFCwL3P5h3jw00s.jpg",
 					zip:"https://www.baidu.com/img/bd_logo1.png"
-				},{
-					id:"list-product-002",
-					title: "通栏-资讯列表",
-					img:"https://ubmcmm.baidustatic.com/media/v1/0f000Q1oFCwL3P5h3jw00s.jpg",
-					zip:"https://www.baidu.com/img/bd_logo1.png"
-				},{
-					id:"list-product-002",
-					title: "通栏-资讯列表",
-					img:"https://ubmcmm.baidustatic.com/media/v1/0f000Q1oFCwL3P5h3jw00s.jpg",
-					zip:"https://www.baidu.com/img/bd_logo1.png"
-				},{
-					id:"list-product-002",
-					title: "通栏-资讯列表",
-					img:"https://ubmcmm.baidustatic.com/media/v1/0f000Q1oFCwL3P5h3jw00s.jpg",
-					zip:"https://www.baidu.com/img/bd_logo1.png"
-				},{
-					id:"list-product-002",
-					title: "通栏-资讯列表",
-					img:"https://ubmcmm.baidustatic.com/media/v1/0f000Q1oFCwL3P5h3jw00s.jpg",
-					zip:"https://www.baidu.com/img/bd_logo1.png"
-				},{
-					id:"list-product-002",
-					title: "通栏-资讯列表",
-					img:"https://ubmcmm.baidustatic.com/media/v1/0f000Q1oFCwL3P5h3jw00s.jpg",
-					zip:"https://www.baidu.com/img/bd_logo1.png"
-				},{
-					id:"list-product-002",
-					title: "通栏-资讯列表",
-					img:"https://ubmcmm.baidustatic.com/media/v1/0f000Q1oFCwL3P5h3jw00s.jpg",
-					zip:"https://www.baidu.com/img/bd_logo1.png"
-				},{
-					id:"list-product-002",
-					title: "通栏-资讯列表",
-					img:"https://ubmcmm.baidustatic.com/media/v1/0f000Q1oFCwL3P5h3jw00s.jpg",
-					zip:"https://www.baidu.com/img/bd_logo1.png"
-				},{
-					id:"list-product-002",
-					title: "通栏-资讯列表",
-					img:"https://ubmcmm.baidustatic.com/media/v1/0f000Q1oFCwL3P5h3jw00s.jpg",
-					zip:"https://www.baidu.com/img/bd_logo1.png"
 				}],
 				show: 0,
 				bigimgurl: ''
