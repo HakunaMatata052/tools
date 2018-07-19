@@ -52,9 +52,6 @@
 </template>
 
 <script>
-	//import Vue from 'vue';
-	//import VueCookie from 'vue-cookie';
-	//Vue.use(VueCookie);
 	export default {
 		data() {
 			return {
@@ -179,7 +176,7 @@
 		}
 	}
 </script>
-<style>
+<style scoped>
 	.ivu-layout-content {
 		padding: 0!important;
 	}
