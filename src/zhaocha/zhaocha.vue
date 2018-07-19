@@ -115,6 +115,10 @@
 									<th></th>
 								</tr>
 								<tr>
+									<td>favicon.ico：</td>
+									<td><img :src="'http://'+$store.state.domain+'/templates/pc_wjdh/favicon.ico'"></td>
+								</tr>
+								<tr>
 									<td>技术支持是否正确：</td>
 									<td v-html="jieguo.technical"></td>
 								</tr>
@@ -178,7 +182,7 @@
 							<Icon type="ios-film-outline "></Icon>
 							手机站
 						</p>
-						<iframe id="mainframe" name="mainframe" frameborder="0" :src="'http://'+that.domainURI(that.$store.state.domain)+'/m'" width="425" height="667" style="margin: auto;"></iframe>
+						<iframe id="mainframe" name="mainframe" frameborder="0" :src="'http://'+domainURI($store.state.domain)+'/m'" width="425" height="667" style="margin: auto;"></iframe>
 					</Card>
 				</i-col>
 			</Row>
@@ -218,7 +222,7 @@
 				let contentjson = {};
 				contentjson.code = '0';
 				that.$http.jsonp('http://wjdh-jiucuo.sxbaiduv.com/api.php?domain=' + that.$store.state.domain + '&company=' + that.company).then(function(res) {
-					var content = res.body.data;				
+					var content = res.body.data;
 					content = content.replace(/\r\n/g, "")
 					content = content.replace(/\n/g, "");
 					content = content.replace(/<!DOCTYPE.*?>/gi, '<div class="body">');
