@@ -1,68 +1,21 @@
 <template>
 	<div>
 		<Row :gutter="16">
-			<i-col :xs="24" :sm="8" :md="8">
+			<i-col :xs="24" :sm="8" :md="8" v-for="cat in catlist">
 				<Card>
-					<p slot="title">设计参考</p>
+					<p slot="title">{{cat.typename}}</p>
 					<ul>
-						<li v-for="item,index in sjck">
-							<Icon type="android-delete" class="del" @click="del(index,'sjck')"></Icon>
-							<img :src="item.url+'/favicon.ico'" alt="" width="15" />
-							<a :href="item.url" target="_blank">{{ item.name }}</a>
+						<li v-for="item in cat.tools_favourite_weburls">
+							<Icon type="android-delete" class="del" @click="del(item.Id)"></Icon>
+							<img :src="item.web_url+'/favicon.ico'" alt="" width="15" />
+							<a :href="item.web_url" target="_blank">{{ item.url_name }}</a>
 						</li>
 					</ul>
 					<Input v-model="name" size="large" placeholder="名称" style="width: 200px"></Input>
 					<Input v-model="url" size="large" placeholder="网址" style="width: 200px"></Input>
-					<Button type="success" @click="add('sjck')">提交</Button>
+					<Button type="success" @click="add(cat.Id)">提交</Button>
 				</Card>
-			</i-col>
-
-			<i-col :xs="24" :sm="8" :md="8">
-				<Card>
-					<p slot="title">代码特效</p>
-					<ul>
-						<li v-for="item,index in dmtx">
-							<Icon type="android-delete" class="del" @click="del(index,'dmtx')"></Icon>
-							<img :src="item.url+'/favicon.ico'" alt="" width="15" />
-							<a :href="item.url" target="_blank">{{ item.name }}</a>
-						</li>
-					</ul>
-					<Input v-model="name" size="large" placeholder="名称" style="width: 200px"></Input>
-					<Input v-model="url" size="large" placeholder="网址" style="width: 200px"></Input>
-					<Button type="success" @click="add('dmtx')">提交</Button>
-				</Card>
-			</i-col>
-
-			<i-col :xs="24" :sm="8" :md="8">
-				<Card>
-					<p slot="title">素材下载</p>
-					<ul>
-						<li v-for="item,index in scxz">
-							<Icon type="android-delete" class="del" @click="del(index,'scxz')"></Icon>
-							<img :src="item.url+'/favicon.ico'" alt="" width="15" />
-							<a :href="item.url" target="_blank">{{ item.name }}</a>
-						</li>
-					</ul>
-					<Input v-model="name" size="large" placeholder="名称" style="width: 200px"></Input>
-					<Input v-model="url" size="large" placeholder="网址" style="width: 200px"></Input>
-					<Button type="success" @click="add('scxz')">提交</Button>
-				</Card>
-			</i-col>
-			<br>
-			<i-col :xs="24" :sm="8" :md="8">
-				<Card>
-					<p slot="title">动力无限</p>
-					<ul>
-						<li v-for="item,index in dlgf">
-							<Icon type="android-delete" class="del" @click="del(index,'dlgf')"></Icon>
-							<img :src="item.url+'/favicon.ico'" alt="" width="15" />
-							<a :href="item.url" target="_blank">{{ item.name }}</a>
-						</li>
-					</ul>
-					<Input v-model="name" size="large" placeholder="名称" style="width: 200px"></Input>
-					<Input v-model="url" size="large" placeholder="网址" style="width: 200px"></Input>
-					<Button type="success" @click="add('dlgf')">提交</Button>
-				</Card>
+				<br/>
 			</i-col>
 		</Row>
 	</div>
@@ -72,32 +25,48 @@
 	export default {
 		data() {
 			return {
-				sjck: [],
-				dmtx: [],
-				scxz: [],
-				dlgf: [],
+				catlist: [],
 				name: '',
 				url: '',
 				password: '',
-				id:'',
-				leixing:''
+				id: '',
+				leixing: ''
 			}
 		},
 		methods: {
-			add(type) {
+			getlist() {
 				var that = this;
-				that.$http.jsonp('http://wjdh-jiucuo.sxbaiduv.com/api/network/network.php?action=add&type=' + type + '&name=' + that.name + '&url=' + that.url).then(function(res) {
-					that[type] = res.body.data[type].list;
-					that.name = "";
-					that.url = "";
+				that.$http.get(that.$store.state.api + 'CatHandler.ashx', {
+					params: {
+						action: 'catlist',
+						token: that.$store.state.token
+					}
+				}).then(function(res) {
 					console.log(res)
+					that.catlist = res.body.data;
 				}, function(res) {
 
 				});
 			},
-			del(index,type) {
-				this.id=index;
-				this.leixing=type;
+			add(id) {
+				var that = this;
+				that.$http.get(that.$store.state.api + 'WebUrlHandler.ashx', {
+					params: {
+						action: 'AddUrl',
+						web_url: that.url,
+						url_name: that.name,
+						urltypeId: id,
+						token: that.$store.state.token
+					}
+				}).then(function(res) {
+					that.getlist();
+					that.name = '';
+					that.url = '';
+				}, function(res) {
+
+				});
+			},
+			del(id) {
 				this.$Modal.confirm({
 					render: (h) => {
 						return h('Input', {
@@ -114,31 +83,30 @@
 						})
 					},
 					onOk: () => {
-						if(this.password == "3.141592653") {
+						if(this.password == "3.14") {
 							this.password = '';
-							this.$http.jsonp('http://wjdh-jiucuo.sxbaiduv.com/api/network/network.php?action=del&type='+this.leixing+'&id='+this.id).then(function(res) {
-								this[type] = res.body.data[type].list;
+							this.$http.get(this.$store.state.api + 'WebUrlHandler.ashx', {
+								params: {
+									action: 'delUrl',
+									urlid: id,
+									token: this.$store.state.token
+								}
+							}).then(function(res) {
+
+								this.getlist();
 							}, function(res) {
 
 							});
 						} else {
 							this.$Message.info('密码错误');
-							console.log('我会告诉你密码是3.141592653？')
+							console.log('我会告诉你密码是3.14？')
 						}
 					}
 				})
 			}
 		},
 		mounted() {
-			var that = this;
-			that.$http.jsonp('http://wjdh-jiucuo.sxbaiduv.com/api/network/network.php?action=get').then(function(res) {
-				//that[type] = res.body[type];
-				for(var attr in res.body.data) {
-					that[attr] = res.body.data[attr].list;
-				}
-			}, function(res) {
-
-			});
+			this.getlist();
 		}
 	}
 </script>

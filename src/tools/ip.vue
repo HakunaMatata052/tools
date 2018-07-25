@@ -40,7 +40,13 @@
 					that.$Message.info('没有内容！');
 					return false
 				}
-				that.$http.jsonp('http://wjdh-jiucuo.sxbaiduv.com/api/ip.php?domain=' + that.domain).then(function(res) {
+				that.$http.get(that.$store.state.api + 'CommonHandler.ashx',{
+					params: {
+						action: 'getIP',
+						web_url: that.ip,
+						token: that.$store.state.token
+					}
+				}).then(function(res) {
 					that.ip = res.body.ip
 				}, function(res) {
 

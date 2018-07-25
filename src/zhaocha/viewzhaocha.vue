@@ -71,7 +71,13 @@
 				var that = this;
 				that.$store.state.domain = that.domainURI(that.$store.state.domain);
 				that.loading = 1;
-				that.$http.jsonp('http://wjdh-jiucuo.sxbaiduv.com/api.php?action=view&domain=' + that.$store.state.domain + '&company=' + that.company).then(function(res) {
+				that.$http.get(that.$store.state.api+'TextHandler.ashx' ,{
+					params: {
+						action:'QuickspotView',
+						web_url:that.$store.state.domain,
+						token:that.$store.state.token
+					}
+				}).then(function(res) {
 					var content = res.body.data;
 					var newcon = $('<html/>').html(content);
 					$(newcon).append('<script>parent.ishow()<\/script>');

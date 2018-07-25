@@ -221,7 +221,13 @@
 				that.score = 100;
 				let contentjson = {};
 				contentjson.code = '0';
-				that.$http.jsonp('http://wjdh-jiucuo.sxbaiduv.com/api.php?domain=' + that.$store.state.domain + '&company=' + that.company).then(function(res) {
+				that.$http.get(that.$store.state.api+'TextHandler.ashx' ,{
+					params: {
+						action:'quickspot',
+						web_url:that.$store.state.domain,
+						token:that.$store.state.token
+					}
+				}).then(function(res) {
 					var content = res.body.data;
 					content = content.replace(/\r\n/g, "")
 					content = content.replace(/\n/g, "");

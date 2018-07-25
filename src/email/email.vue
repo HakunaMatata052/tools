@@ -342,10 +342,10 @@
 				localStorage.name = that.name;
 				localStorage.tel = that.tel;
 				localStorage.qq = that.qq;
-				that.$http.get('http://wjdh03.sjgogo.cn/api/EmailHandler.ashx', {
+				that.$http.get(that.$store.state.api+'EmailHandler.ashx', {
 					params: {
 						action:type,
-						token:'57373A7E05CB44079B2F12C14A5E83A9',
+						token:that.$store.state.token,
 						copyemail:that.csemail,
 						Send_emialBtoe: that.company,
 						Send_emialAddress: that.email,

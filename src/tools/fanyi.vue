@@ -17,7 +17,6 @@
 	export default {
 		data() {
 			return {
-				author: "菜单一",
 				hanyu: '',
 				jieguo: ''
 			}
