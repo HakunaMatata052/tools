@@ -43,11 +43,11 @@
 				that.$http.get(that.$store.state.api + 'CommonHandler.ashx',{
 					params: {
 						action: 'getIP',
-						web_url: that.ip,
+						web_url: that.domain,
 						token: that.$store.state.token
 					}
 				}).then(function(res) {
-					that.ip = res.body.ip
+					that.ip = res.body.data
 				}, function(res) {
 
 				});

@@ -1,6 +1,6 @@
 <template>
 	<Layout>
-		<Sider hide-trigger :style="{background: '#fff'}">
+		<Sider hide-trigger :style="{position: 'fixed', height: '100vh', left: 0, overflow: 'auto',background: '#fff'}">
 			<Menu active-name="1-2" theme="light" width="auto" :open-names="['1']">
 				<Submenu name="1">
 					<template slot="title">
@@ -16,17 +16,20 @@
 					<MenuItem name="1-3">
 					<router-link to="/zhaocha">找茬工具</router-link>
 					</MenuItem>
-					<MenuItem name="1-3">
+					<MenuItem name="1-4">
 					<router-link to="/viewzhaocha">找茬工具(可视化)</router-link>
 					</MenuItem>
-					<MenuItem name="1-3">
+					<MenuItem name="1-5">
 					<router-link to="/wjc">违禁词</router-link>
 					</MenuItem>
-					<MenuItem name="1-3">
+					<MenuItem name="1-6">
 					<router-link to="/email">发邮件</router-link>
 					</MenuItem>
-					<MenuItem name="1-3">
+					<MenuItem name="1-7">
 					<router-link to="/map">百度地图生成器</router-link>
+					</MenuItem>
+					<MenuItem name="1-8">
+					<router-link to="/viewedit">模板编辑</router-link>
 					</MenuItem>
 				</Submenu>
 				<Submenu name="2">
@@ -56,13 +59,13 @@
 				</Submenu>
 			</Menu>
 		</Sider>
-		<Layout :style="{padding: '0 24px 24px'}">
+		<Layout :style="{padding: '0 ',marginLeft: '200px',height: '100vh'}">
 			<!--<Breadcrumb :style="{margin: '24px 0'}">
 				<BreadcrumbItem>Home</BreadcrumbItem>
 				<BreadcrumbItem>Components</BreadcrumbItem>
 				<BreadcrumbItem>Layout</BreadcrumbItem>
 			</Breadcrumb>-->
-			<Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
+			<Content :style="{padding: '24px', minHeight: '280px',height: '100vh'}">
 				<router-view :userdata="userdata"></router-view>
 			</Content>
 		</Layout>
@@ -89,4 +92,7 @@
 		width: 100%;
 		height: 100%;
 	}
+	body{
+        overflow: hidden;
+    }
 </style>

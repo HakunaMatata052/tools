@@ -157,6 +157,7 @@
 		width: 100%;
 		font-family: Microsoft YaHei, arial;
 		font-size: 14px;
+		background: #fff;
 	}
 	
 	.top_box {

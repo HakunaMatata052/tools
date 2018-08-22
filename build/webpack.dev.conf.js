@@ -13,6 +13,8 @@ const portfinder = require('portfinder')
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
 
+var appData = require('../data.json') //加载本地数据文件
+var data = appData //获取对应的本地数据
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap, usePostCSS: true })
@@ -42,7 +44,23 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     quiet: true, // necessary for FriendlyErrorsPlugin
     watchOptions: {
       poll: config.dev.poll,
-    }
+    },
+		before(app) {
+			app.get('/api', (req, res) => {
+					res.json({
+						code: 0,
+						'msg': '加载成功！',
+						data: data
+					}) //接口返回json数据，上面配置的数据seller就赋值给data请求后调用
+				}),
+				app.post('/api', function(req, res) { // 注意这里改为post就可以了
+					res.json({
+						code: 0,
+						'msg': '加载成功！',
+						data: data
+					}) //接口返回json数据，上面配置的数据seller就赋值给data请求后调用
+				})
+		}
   },
   plugins: [
     new webpack.DefinePlugin({

@@ -23,6 +23,8 @@ var mobile = r => require.ensure([], () => r(require('../mobile/Mobile')), 'mobi
 
 var template = r => require.ensure([], () => r(require('../template/Template')), 'template');
 
+var viewedit = r => require.ensure([], () => r(require('../viewedit/Viewedit')), 'viewedit');
+
 //import Tools from '../home/Tools'
 //import List from '../list/List'
 //
@@ -85,6 +87,10 @@ const router = new VueRouter({
 		{
 			path: '/template',
 			component: template
+		},
+		{
+			path: '/viewedit',
+			component: viewedit
 		}
 	]
 })

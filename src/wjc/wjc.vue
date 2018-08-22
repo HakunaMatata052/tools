@@ -9,7 +9,7 @@
 
 		</Card>
 		<Spin fix v-if="loading">
-			<Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
+			<Icon type="load-c" size='18' class="demo-spin-icon-load"></Icon>
 			<div>Loading</div>
 		</Spin>
 		<div v-if="show" v-html="jieguo">
@@ -52,7 +52,7 @@
 					content = content.replace(/title=".*?"/gi, "");
 					content = content.replace(/alt=".*?"/gi, "");
 					var ar = []
-					var regex = res.body.reg;
+					var regex = new RegExp(res.body.reg,'gi');
 					var result = content.match(regex);
 					if(null == result || 0 == result.length) {
 						that.$Message.info("（没有违禁词）");
