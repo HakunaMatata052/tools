@@ -22,9 +22,9 @@
 					<MenuItem name="1-5">
 					<router-link to="/wjc">违禁词</router-link>
 					</MenuItem>
-					<MenuItem name="1-6">
+					<!--<MenuItem name="1-6">
 					<router-link to="/email">发邮件</router-link>
-					</MenuItem>
+					</MenuItem>-->
 					<MenuItem name="1-7">
 					<router-link to="/map">百度地图生成器</router-link>
 					</MenuItem>

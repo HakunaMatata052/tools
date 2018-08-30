@@ -20,14 +20,8 @@
 			<i-col :xs="24" :sm="8" :md="8">
 				<ip></ip>
 			</i-col>
-		</Row>
-		<br>
-		<Row>
 			<i-col :xs="24" :sm="8" :md="8">
-				<Card>
-					<p slot="title" class="btn" data-clipboard-target="#f0048">素材下载<input class="mimayu" value="BHHY2!2!1705!" id="f0048"/></p>
-					<p><iframe src="http://images.dongliwuxianjituan.top/login.aspx" frameborder="0" width="100%" height="327"></iframe></p>
-				</Card>
+				<imagesdown></imagesdown>
 			</i-col>
 		</Row>
 	</div>
@@ -40,13 +34,15 @@
 	import addattr from '../tools/Addattr'
 	import transference from '../tools/Transference'
 	import ip from '../tools/Ip'
+	import imagesdown from '../tools/Imagesdown'
 	export default {
 		components: {
 			fanyi,
 			lazyload,
 			addattr,
 			transference,
-			ip
+			ip,
+			imagesdown
 		},
 		mounted() {
 			const clipboard = new Clipboard('.btn');
