@@ -3,7 +3,8 @@
 	<Card>
 		<p slot="title">标签补全</p>
 		<p>
-			<Input v-model="content" type="textarea" :rows="4" placeholder="将源代码粘贴进来" element-id="addattr"></Input>
+
+			<editor id="editor_id" height="500" width="100%" :content="editorText" :afterChange="afterChange()" pluginsPath="/static/kindeditor/plugins/" :loadStyleMode="true" @on-content-change="onContentChange"></editor>
 		</p>
 		<br>
 		<p>
@@ -13,17 +14,31 @@
 </template>
 
 <script>
+	import Vue from 'vue';
+	import VueKindEditor from 'vue-kindeditor'
+	import 'kindeditor/kindeditor-all-min.js'
+	import 'kindeditor/themes/default/default.css'
+	Vue.use(VueKindEditor)
 	export default {
 		data() {
 			return {
-				content: ''
+				content: '',
+				editorText: '',
+				editorText2: ''
 			}
 		},
 		methods: {
+			onContentChange(val) {
+				this.editorText = val
+			},
+			onContentChange2(val) {
+				this.editorText2 = val
+			},
+			afterChange() {},
 			addattr() {
 				var that = this;
 				var content = that.content;
-				if(content.length==0){
+				if(content.length == 0) {
 					that.$Message.info('没有内容！');
 					return false
 				}

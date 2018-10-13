@@ -2,18 +2,24 @@
 	<div>
 
 		<Card>
-			<Input v-model="$store.state.domain" @on-focus="reset">
-			<Select v-model="company" slot="prepend" style="width: 80px">
-				<Option value="0">西安</Option>
-				<Option value="1">成都</Option>
-				<Option value="2">郑州</Option>
-				<Option value="3">武汉</Option>
-				<Option value="4">远景</Option>
-			</Select>
-			<span slot="prepend">http://</span>
-			<Button slot="append" icon="ios-search" @click="zhaocha"></Button>
-			</Input>
-
+			<Row :gutter="16">
+				<i-col :xs="20">
+					<Input v-model="$store.state.domain" @on-focus="reset">
+					<Select v-model="company" slot="prepend" style="width: 80px">
+						<Option value="0">西安</Option>
+						<Option value="1">成都</Option>
+						<Option value="2">郑州</Option>
+						<Option value="3">武汉</Option>
+						<Option value="4">远景</Option>
+					</Select>
+					<span slot="prepend">http://</span>
+					<Button slot="append" icon="ios-search" @click="zhaocha"></Button>
+					</Input>
+				</i-col>
+				<i-col :xs="4">
+					<Button type="success" @click="apply" long>生成提交格式</Button>
+				</i-col>
+			</Row>
 		</Card>
 		<Spin fix v-if="loading">
 			<Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
@@ -25,7 +31,7 @@
 				<i-col :xs="24" :sm="18" :md="18">
 					<Card>
 						公司名称：
-						<h1><a :href="'http://'+$store.state.domain" target="_blank">{{jieguo.companyname}}</a></h1>
+						<h1><a :href="'http://'+$store.state.domain" target="_blank">{{jieguo.companyname.value}}</a></h1>
 						<br> (如果公司名称不对或未显示，请重新查询！)
 					</Card>
 				</i-col>
@@ -43,20 +49,55 @@
 						<table>
 							<tbody>
 								<tr>
-									<th width="20%"></th>
+									<th width="10%"></th>
+									<th width="10%"></th>
 									<th></th>
+									<th width="10%"></th>
 								</tr>
 								<tr>
 									<td>网站标题：</td>
-									<td>{{jieguo.title}}</td>
+									<td :class="[{ cc: jieguo.title.lth>80 }]">
+										<font color="#f00">{{jieguo.title.lth}}</font>个字符</td>
+									<td>{{jieguo.title.value}}</td>
+									<td>一般不超过80个字符</td>
 								</tr>
 								<tr>
 									<td>网站描述：</td>
-									<td>{{jieguo.description}}</td>
+									<td :class="[{ cc: jieguo.description.lth>100 }]">
+										<font color="#f00">{{jieguo.description.lth}}</font>个字符</td>
+									<td>{{jieguo.description.value}}</td>
+									<td>一般不超过100个字符</td>
 								</tr>
 								<tr>
 									<td>网站关键词：</td>
-									<td v-html="jieguo.keywords"></td>
+									<td :class="[{ cc: jieguo.keywords.lth>200 }]">
+										<font color="#f00">{{jieguo.keywords.lth}}</font> 个字符</td>
+									<td v-html="jieguo.keywords.value"></td>
+									<td>一般不超过200个字符</td>
+								</tr>
+							</tbody>
+						</table>
+					</Card>
+				</i-col>
+			</Row>
+			<br>
+			<Row :gutter="16">
+				<i-col :xs="24" :sm="24" :md="24">
+					<Card>
+						<p slot="title">关键词密度：</p>
+						<table>
+							<tbody>
+								<tr>
+									<th width="10%">关键词</th>
+									<th width="10%">出现次数</th>
+									<th>2%≦密度≦8%</th>
+
+									<th width="60%"></th>
+								</tr>
+								<tr v-for="item in jieguo.keywordsDensity">
+									<td align="center">{{item.name}}</td>
+									<td align="center">{{item.value}}</td>
+									<td align="center">{{item.density}}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -199,7 +240,8 @@
 				jieguo: '',
 				score: '',
 				show: 0,
-				loading: 0
+				loading: 0,
+				end:0
 			}
 		},
 		directives: {
@@ -211,8 +253,32 @@
 			}
 		},
 		methods: {
+			apply(){
+				if(this.end!=1){
+					this.$Message.info('请先找茬在生成');
+					return false;
+				}
+				var midu = '';
+				for(var i=0;i<this.jieguo.keywordsDensity.length;i++){
+					midu+='关键词名称：'+this.jieguo.keywordsDensity[i].name+';密度：'+this.jieguo.keywordsDensity[i].density+'\r\n'
+				}
+				this.$store.state.zhaocha_apply.companyname = this.jieguo.companyname.value;
+				this.$store.state.zhaocha_apply.test = this.$store.state.domain;
+				this.$store.state.zhaocha_apply.score = this.score;
+				this.$store.state.zhaocha_apply.midu = midu;
+				this.$Message.info('正在生成。。。');
+				this.$router.push({
+						path: '/apply'
+				})
+				
+			},
 			reset() {
 				this.$store.state.domain = "";
+			},
+			toPercent(point) {
+				var str = Number(point * 100).toFixed(1);
+				str += "%";
+				return str;
 			},
 			zhaocha() {
 				var that = this;
@@ -221,16 +287,17 @@
 				that.score = 100;
 				let contentjson = {};
 				contentjson.code = '0';
-				that.$http.get(that.$store.state.api+'TextHandler.ashx' ,{
+				that.$http.get(that.$store.state.api + 'TextHandler.ashx', {
 					params: {
-						action:'quickspot',
-						web_url:that.$store.state.domain,
-						token:that.$store.state.token
+						action: 'quickspot',
+						web_url: that.$store.state.domain,
+						token: that.$store.state.token
 					}
 				}).then(function(res) {
 					var content = res.body.data;
-					content = content.replace(/\r\n/g, "")
 					content = content.replace(/\n/g, "");
+					content = content.replace(/\r/g, "");
+					content = content.replace(/\r\n/g, "");
 					content = content.replace(/<!DOCTYPE.*?>/gi, '<div class="body">');
 					content = content.replace(/<html.*?>/gi, '')
 					content = content.replace('</html>', '</div>')
@@ -250,28 +317,70 @@
 					technical(that.company);
 					rel(that.company);
 					program();
+					that.end = 1;
 					console.log(that.jieguo);
 					that.jieguo = contentjson;
 					that.loading = 0;
 					that.show = 1;
 					//基础三项
 					function jcsx() {
+						var zz = '';
+						parent.find('[alt]').each(function() {
+							var aa = $(this).attr('alt');
+							zz = zz + aa;
+						});
+						parent.find('[title]').each(function() {
+							var bb = $(this).attr('title');
+							zz = zz + bb;
+						});
+						var zhtml = parent.html();
+						zhtml = zhtml.replace(/<script.*?<\/script>/gi, '')
+						zhtml = $(zhtml).text();
+						zhtml = zhtml.replace(/\s+/g, '');
+
+						contentjson.title = {};
+						contentjson.companyname = {};
+						contentjson.description = {};
+						contentjson.keywords = {};
+						contentjson.keywordsDensity = [];
 						var title = parent.find("title").text();
-						contentjson.title = title;
+						contentjson.title.value = title;
+						contentjson.title.lth = title.length;
 						var titleArray = new Array;
 						var titleArray = title.split("|"); //把标题拆分成数组
-						contentjson.companyname = titleArray[titleArray.length - 1];
-						contentjson.description = parent.find("meta[name='description']").attr("content");
+						contentjson.companyname.value = titleArray[titleArray.length - 1];
+						contentjson.description.value = parent.find("meta[name='description']").attr("content");
+						contentjson.description.lth = parent.find("meta[name='description']").attr("content").length;
 						var keywords = parent.find("meta[name='keywords']").attr("content");
+
+						var zuizhong = zhtml + zz + parent.find("title").text() + parent.find("meta[name='description']").attr("content") + parent.find("meta[name='keywords']").attr("content");
+						var zongzishu = zuizhong.length;
+
+						console.log(zuizhong);
+						console.log(zongzishu);
+
 						if(keywords.length != 0) {
+							var delimiter = '';
+							if(keywords.indexOf(',') >= 0) {
+								delimiter = ','
+							} else if(keywords.indexOf('|') >= 0) {
+								delimiter = '|';
+							}
 							var keywordsArray = new Array;
-							var keywordsArray = keywords.split(",");
+							var keywordsArray = keywords.split(delimiter);
 							var keywordslist = '';
 							for(var i = 0; i < keywordsArray.length; i++) {
 								keywordslist += '<a href="https://www.baidu.com/s?ie=UTF-8&wd=' + keywordsArray[i] + '" target="_blank" class="btn btn-link">' + keywordsArray[i] + '</a>&nbsp;&nbsp;&nbsp;&nbsp;';
-								//$("#keywords").prepend()
+								//$("#keywords").prepend();
+								var ss = zuizhong;
+								var nn = (ss.split(keywordsArray[i])).length - 1;
+								contentjson.keywordsDensity[i] = {};
+								contentjson.keywordsDensity[i].name = keywordsArray[i];
+								contentjson.keywordsDensity[i].value = nn;
+								contentjson.keywordsDensity[i].density = that.toPercent(keywordsArray[i].length * nn / zongzishu);
 							};
-							contentjson.keywords = keywordslist;
+							contentjson.keywords.value = keywordslist;
+							contentjson.keywords.lth = keywords.length;
 						};
 
 					}
@@ -849,5 +958,9 @@
 		height: 100px;
 		position: relative;
 		border: 1px solid #eee;
+	}
+	
+	.cc {
+		background: #DAD55E;
 	}
 </style>

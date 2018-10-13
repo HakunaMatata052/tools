@@ -12,6 +12,8 @@ var customer = r => require.ensure([], () => r(require('../speak/Customer')), 'c
 var zhaocha = r => require.ensure([], () => r(require('../zhaocha/Zhaocha')), 'zhaocha');
 
 var viewzhaocha = r => require.ensure([], () => r(require('../zhaocha/Viewzhaocha')), 'viewzhaocha');
+var baidu = r => require.ensure([], () => r(require('../zhaocha/baidu.vue')), 'baidu');
+var apply = r => require.ensure([], () => r(require('../zhaocha/apply.vue')), 'apply');
 
 var wjc = r => require.ensure([], () => r(require('../wjc/Wjc')), 'wjc');
 var network = r => require.ensure([], () => r(require('../network/Network')), 'network');
@@ -91,6 +93,14 @@ const router = new VueRouter({
 		{
 			path: '/viewedit',
 			component: viewedit
+		},
+		{
+			path: '/baidu',
+			component: baidu
+		},
+		{
+			path: '/apply',
+			component: apply
 		}
 	]
 })

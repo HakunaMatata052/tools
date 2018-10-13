@@ -22,6 +22,10 @@
 					<MenuItem name="1-5">
 					<router-link to="/wjc">违禁词</router-link>
 					</MenuItem>
+					
+					<MenuItem name="1-4">
+					<router-link to="/baidu">阿里云无密码访问</router-link>
+					</MenuItem>
 					<!--<MenuItem name="1-6">
 					<router-link to="/email">发邮件</router-link>
 					</MenuItem>-->

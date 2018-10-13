@@ -3,12 +3,12 @@
 	<Card>
 		<p slot="title">素材下载</p>
 		<p>
-			<Input v-model="domain">
+			<Input v-model="domain" element-id="getimage">
 			</Input>
 		</p>
 		<br>
 		<p>
-			<Button type="success" long @click="getip">下载素材</Button>
+			<Button type="success" long @click="getimage" onclick="getimage();">下载素材</Button>
 		</p>
 		<br>
 		<p>
@@ -28,7 +28,7 @@
 			}
 		},
 		methods: {
-			getip() {
+			getimage() {
 				var that = this;
 				that.domain = that.domainURI(that.domain);
 				if(that.domain == 0) {
@@ -42,9 +42,12 @@
 						token: that.$store.state.token
 					}
 				}).then(function(res) {
-					that.download(res.data.data)
-				}, function(res) {
-					that.$Message.info(res.data.msg);
+					if(res.data.code==0){
+						that.download(res.data.data)
+					}else {
+						that.$Message.info(res.data.msg);
+					}
+					
 				});
 			},
 			domainURI(str) {

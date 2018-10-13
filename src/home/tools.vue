@@ -24,6 +24,12 @@
 				<imagesdown></imagesdown>
 			</i-col>
 		</Row>
+		<br>
+				<Row :gutter="16">
+			<i-col :xs="24" :sm="24" :md="24">
+				<word></word>
+			</i-col>
+		</Row>
 	</div>
 </template>
 
@@ -35,6 +41,7 @@
 	import transference from '../tools/Transference'
 	import ip from '../tools/Ip'
 	import imagesdown from '../tools/Imagesdown'
+	import word from '../tools/Word'
 	export default {
 		components: {
 			fanyi,
@@ -42,7 +49,8 @@
 			addattr,
 			transference,
 			ip,
-			imagesdown
+			imagesdown,
+			word
 		},
 		mounted() {
 			const clipboard = new Clipboard('.btn');

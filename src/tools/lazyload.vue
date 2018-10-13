@@ -3,11 +3,11 @@
 	<Card>
 		<p slot="title">懒加载</p>
 		<p>
-			<Input v-model="content" type="textarea" :rows="4" placeholder="将源代码粘贴进来"></Input>
+			<Input v-model="content" type="textarea" :rows="4" placeholder="将源代码粘贴进来" element-id="lazyload"></Input>
 		</p>
 		<br>
 		<p>
-			<Button type="success" long @click="lazyload">转换并下载</Button>
+			<Button type="success" long @click="lazyload" onclick="lazyload();">转换并下载</Button>
 		</p>
 	</Card>
 </template>
