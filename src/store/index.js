@@ -6,7 +6,7 @@ export default new vuex.Store({
 	state: {
 		api:'http://wjdh03.sjgogo.cn/api/',
 		token:"57373A7E05CB44079B2F12C14A5E83A9",
-		domain: "hzbedzkj.dongliwuxianjituan.top",
+		domain: "huannengxl.dongliwuxianjituan.top",
 		zhaocha_apply:{
 			companyname:'',
 			domain:'',

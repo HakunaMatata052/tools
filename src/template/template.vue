@@ -121,7 +121,14 @@
 			}
 		},
 		mounted() {
-
+			var that = this;
+			that.$http.get(that.$store.state.api + 'CatHandler.ashx', {
+					params: {
+						token: that.$store.state.token
+					}
+				}).then(function(){
+				
+			})
 		},
 		methods: {
 			bigimg(url) {

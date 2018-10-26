@@ -3,7 +3,7 @@
 
 		<Card>
 			<Row :gutter="16">
-				<i-col :xs="20">
+				<i-col :xs="24">
 					<Input v-model="$store.state.domain" @on-focus="reset">
 					<Select v-model="company" slot="prepend" style="width: 80px">
 						<Option value="0">西安</Option>
@@ -13,10 +13,10 @@
 						<Option value="4">远景</Option>
 					</Select>
 					<span slot="prepend">http://</span>
-					<Button slot="append" icon="ios-search" @click="zhaocha"></Button>
+					<Button slot="append" type="success" icon="ios-search" @click="zhaocha"></Button>
 					</Input>
 				</i-col>
-				<i-col :xs="4">
+				<i-col :xs="4" v-if="false">
 					<Button type="success" @click="apply" long>生成提交格式</Button>
 				</i-col>
 			</Row>
@@ -117,6 +117,12 @@
 							<ul v-html="jieguo.titlenum">
 							</ul>
 						</Alert>
+						
+						<h3 v-if="jieguo.nlink!=0">图片A链接中含有title属性的有：{{jieguo.aimgnum}}个</h3>
+						<Alert type="error" v-if="jieguo.aimg!=undefined && jieguo.aimg.length!=0">
+							<ul v-html="jieguo.aimg">
+							</ul>
+						</Alert>
 
 						<h3 v-if="jieguo.elink!=0">链接中title属性可能错误的有：{{jieguo.elink}}个</h3>
 						<Alert type="error" v-if="jieguo.etitlenum!=undefined && jieguo.etitlenum.length!=0">
@@ -130,7 +136,7 @@
 							</ul>
 						</Alert>
 
-						<h3 v-if="jieguo.nalt!=0">图片中没有alt和title属性的有：{{jieguo.nalt}}个</h3>
+						<h3 v-if="jieguo.nalt!=0">图片中没有alt属性的有：{{jieguo.nalt}}个</h3>
 						<Alert type="error" v-if="jieguo.altnum!=undefined && jieguo.altnum.length!=0">
 							<ul v-html="jieguo.altnum">
 							</ul>
@@ -160,10 +166,6 @@
 									<td><img :src="'http://'+$store.state.domain+'/templates/pc_wjdh/favicon.ico'"></td>
 								</tr>
 								<tr>
-									<td>技术支持是否正确：</td>
-									<td v-html="jieguo.technical"></td>
-								</tr>
-								<tr>
 									<td>H1标签数量：</td>
 									<td v-html="jieguo.h1num "></td>
 								</tr>
@@ -187,23 +189,11 @@
 									<td>网站立即咨询的qq号为：</td>
 									<td v-html="jieguo.qq "></td>
 								</tr>
-								<tr>
-									<td>网站出现程序代码：</td>
-									<td v-html="jieguo.program "></td>
-								</tr>
 
-								<tr>
-									<td>rel="external nofollow "是否正确：</td>
-									<td v-html="jieguo.rel "></td>
-								</tr>
 
 								<tr>
 									<td></td>
 									<td v-html="jieguo.rellist"></td>
-								</tr>
-								<tr v-if="0">
-									<td>企业商铺链接是否正确：</td>
-									<td v-html="jieguo.qysp"></td>
 								</tr>
 
 								<tr>
@@ -314,9 +304,6 @@
 					qq();
 					jq();
 					banner();
-					technical(that.company);
-					rel(that.company);
-					program();
 					that.end = 1;
 					console.log(that.jieguo);
 					that.jieguo = contentjson;
@@ -390,6 +377,7 @@
 						var atitlenum1 = 0; //声明没有写title的A标签数量
 						var atitlenum2 = 0; //声明有写title但为空的A标签数量
 						var atitlenum3 = 0; //声明有写title但与内容不匹配的A标签数量
+						var aimgnum = 0; 
 						var etitle = 0; //声明有写title但可能错误的数量
 						var regZh = /[\u4E00-\u9FA5\uF900-\uFA2D]/; //匹配中文字符
 						var regMore = /more/; //匹配中文字符
@@ -397,45 +385,56 @@
 						var titlenum = '';
 						var etitlenumlist = ''
 						var titlebppnumlist = '';
+						var aimglist = '';
 						for(var i = 0; i < anum; i++) {
 							var atitle = parent.find("a").eq(i).attr("title");
 							var abs = parent.find("a").eq(i).prop("outerHTML"); //获取含有元素本身的html
 							var atitlehref = parent.find("a").eq(i).attr('href')
-							if(atitle != undefined || atitle != "" || atitle != " ") {
-								//alert(re.test(atitle));      //返回true
-								if(regZh.test(atitle) == false && regMore.test(atitle) == false) {
-									if(atitlehref == "/rss.xml") {
-
-									} else if(atitlehref == "/sitemap.xml") {
-
-									} else {
-										etitle++;
-										//$("#etitlenum").prepend('<p class="list-group-item list-group-item-danger"><pre><xmp>' + abs + '</xmp></pre></p>');
-										etitlenumlist += '<p class="list-group-item list-group-item-danger"><pre><xmp>' + abs + '</xmp></pre></p>'
-										that.score = that.score - 2;
+							if(parent.find("a").eq(i).find('img').length==0){
+								if(atitle != undefined || atitle != "" || atitle != " ") {
+									//alert(re.test(atitle));      //返回true
+									if(regZh.test(atitle) == false && regMore.test(atitle) == false) {
+										if(atitlehref == "/rss.xml") {
+	
+										} else if(atitlehref == "/sitemap.xml") {
+	
+										} else {
+											etitle++;
+											//$("#etitlenum").prepend('<p class="list-group-item list-group-item-danger"><pre><xmp>' + abs + '</xmp></pre></p>');
+											etitlenumlist += '<p class="list-group-item list-group-item-danger"><pre><xmp>' + abs + '</xmp></pre></p>'
+											that.score = that.score - 2;
+										}
+									};
+									var acontent = parent.find("a").eq(i).html();
+									var atitlebt = acontent.indexOf(atitle);
+									if(atitlebt < 0 && regZh.test(acontent) == true) {
+										atitlenum3++;
+										//$("#titlebppnum").prepend('<p class="list-group-item list-group-item-danger"><pre><xmp>' + abs + '</xmp></pre></p>');
+										titlebppnumlist += '<p class="list-group-item list-group-item-danger"><pre><xmp>' + abs + '</xmp></pre></p>'
 									}
-								};
-								var acontent = parent.find("a").eq(i).html();
-								var atitlebt = acontent.indexOf(atitle);
-								if(atitlebt < 0 && regZh.test(acontent) == true) {
-									atitlenum3++;
-									//$("#titlebppnum").prepend('<p class="list-group-item list-group-item-danger"><pre><xmp>' + abs + '</xmp></pre></p>');
-									titlebppnumlist += '<p class="list-group-item list-group-item-danger"><pre><xmp>' + abs + '</xmp></pre></p>'
+								}
+								if(atitle == undefined) {
+									atitlenum1++;
+									//$("#titlenum").prepend('<p class="list-group-item list-group-item-danger"><pre><xmp>' + abs + '</xmp></pre></p>');
+									titlenum += '<p class="list-group-item list-group-item-danger"><pre><xmp>' + abs + '</xmp></pre></p>';
+									that.score = that.score - 1;
+								}
+								if(atitle == "" || atitle == " ") {
+									atitlenum2++;
+									//$("#titlenum").prepend('<p class="list-group-item list-group-item-danger"><pre><xmp>' + abs + '</xmp></pre></p>');
+									titlenum += '<p class="list-group-item list-group-item-danger"><pre><xmp>' + abs + '</xmp></pre></p>';
+									that.score = that.score - 1;
+								}	
+							}else{
+								if(atitle != undefined) {
+									aimgnum++;
+									aimglist += '<p class="list-group-item list-group-item-danger"><pre><xmp>' + abs + '</xmp></pre></p>';
+									that.score = that.score - 1;
 								}
 							}
-							if(atitle == undefined) {
-								atitlenum1++;
-								//$("#titlenum").prepend('<p class="list-group-item list-group-item-danger"><pre><xmp>' + abs + '</xmp></pre></p>');
-								titlenum += '<p class="list-group-item list-group-item-danger"><pre><xmp>' + abs + '</xmp></pre></p>';
-								that.score = that.score - 1;
-							}
-							if(atitle == "" || atitle == " ") {
-								atitlenum2++;
-								//$("#titlenum").prepend('<p class="list-group-item list-group-item-danger"><pre><xmp>' + abs + '</xmp></pre></p>');
-								titlenum += '<p class="list-group-item list-group-item-danger"><pre><xmp>' + abs + '</xmp></pre></p>';
-								that.score = that.score - 1;
-							}
 						}
+						contentjson.aimgnum = aimgnum;
+						contentjson.aimg = aimglist;
 						contentjson.etitlenum = etitlenumlist;
 						contentjson.titlebppnum = titlebppnumlist;
 						contentjson.titlenum = titlenum;
@@ -515,20 +514,13 @@
 						var altnumlist = '';
 						for(var i = 0; i < imgnum; i++) {
 							var imgalt = parent.find("img").eq(i).attr("alt");
-							var imgtitle = parent.find("img").eq(i).attr("title");
+							//var imgtitle = parent.find("img").eq(i).attr("title");
 							var imgbs = parent.find("img").eq(i).prop("outerHTML");
-							if(imgalt == undefined || imgtitle == undefined || imgalt == "" || imgalt == " " || imgtitle == "" || imgtitle == " ") {
+							if(imgalt == undefined  || imgalt == "" || imgalt == " ") {
 								imgaltnum++;
-								var naltnum = parent.find("img").eq(i).attr("data-src");
-								if(naltnum == undefined || naltnum.length == 0) {
-									//$("#altnum").prepend('<p class="list-group-item list-group-item-danger"><pre><xmp>' + imgbs + '</xmp></pre></p>');
-									altnumlist += '<p class="list-group-item list-group-item-danger"><pre><xmp>' + imgbs + '</xmp></pre></p>';
+								var naltnum = parent.find("img").eq(i).attr("src");
+								altnumlist += '<p class="list-group-item list-group-item-danger"><pre><xmp>' + imgbs + '</xmp></pre></p>';
 									that.score = that.score - 1;
-								} else {
-									//$("#altnum").prepend('<p class="list-group-item list-group-item-danger">' + naltnum + '</p>');
-									altnumlist += '<p class="list-group-item list-group-item-danger">' + naltnum + '</p>';
-									that.score = that.score - 1;
-								}
 							}
 						}
 						contentjson.altnum = altnumlist;
@@ -539,49 +531,6 @@
 						} else {
 							//$("#nalt").html(imgaltnum + '个');
 							contentjson.nalt = imgaltnum;
-						}
-					}
-					//技术支持
-					function technical(n) {
-						if(n == 2) {
-							var jszc = parent.find("a:contains('无限动力')").attr('href');
-						} else if(n == 4) {
-							var jszc = parent.find("a:contains('远景电商')").attr('href');
-						} else {
-							var jszc = parent.find("a:contains('动力无限')").attr('href');
-						}
-						if(jszc == "" || jszc == " " || jszc == undefined) {
-							//$("#technical").html('<div class="alert alert-danger"><b class="text-danger">技术支持名称是错误的！</b></div>'); //错误提示
-							contentjson.technical = '<div class="alert alert-danger"><b class="text-danger">技术支持名称是错误的！</b></div>';
-						} else {
-							if(n == 0) {
-								if(jszc == "http://www.btoe.cn" || jszc == "http://www.btoe.cn/") //西安网址
-									var clude = 1;
-							}
-							if(n == 1) {
-								if(jszc == "http://www.cddlwx.com" || jszc == "http://www.cddlwx.com/") //成都网址
-									var clude = 1;
-							}
-							if(n == 2) {
-								if(jszc == "http://www.hnwxdl.com" || jszc == "http://www.hnwxdl.com/") //郑州网址
-									var clude = 1;
-							}
-							if(n == 3) {
-								if(jszc == "http://www.whdlwx.com" || jszc == "http://www.whdlwx.com/") //武汉网址
-									var clude = 1;
-							}
-							if(n == 4) {
-								if(jszc == "http://www.yjdzsw.com" || jszc == "http://www.yjdzsw.com/") //武汉网址
-									var clude = 1;
-							}
-							if(clude == 1) {
-								//$("#technical").html('<div class="alert alert-success" role="alert">技术支持链接是正确的！' + '<b class="text-success">' + jszc + "<b></div>"); //正确提示
-								contentjson.technical = '<div class="alert alert-success" role="alert">技术支持链接是正确的！' + '<b class="text-success">' + jszc + "<b></div>";
-							} else {
-								//$("#technical").html('<div class="alert alert-danger">' + "技术支持链接是错误的！" + '<b class="text-danger">' + jszc + "</b></div>"); //错误提示
-								contentjson.technical = '<div class="alert alert-danger">' + "技术支持链接是错误的！" + '<b class="text-danger">' + jszc + "</b></div>";
-								that.score = that.score - 20;
-							}
 						}
 					}
 					//H1
@@ -603,17 +552,13 @@
 					//H2
 					function h2() {
 						var h2num = parent.find("h2").length;
-						if(h2num == 2 || h2num == 3) {
-							//$("#h2num").html('<div class="alert alert-success" role="alert">页面中共有<span class="badge">' + h2num + "</span>个H2标签</div>");
-							contentjson.h2num = '<div class="alert alert-success" role="alert">页面中共有<span class="badge">' + h2num + "</span>个H2标签</div>"
-						} else if(h2num > 3) {
+						if(h2num > 0) {
 							//$("#h2num").html('<div class="alert alert-danger">页面中共有<span class="badge">' + h2num + '</span>个H2标签,<b class="text-danger">太多啦</b></div>');
 							contentjson.h2num = '<div class="alert alert-danger">页面中共有<span class="badge">' + h2num + '</span>个H2标签,<b class="text-danger">太多啦</b></div>';
 							that.score = that.score - 5;
-						} else if(h2num < 2) {
+						} else if(h2num == 0) {
 							//$("#h2num").html('<div class="alert alert-danger">页面中共有<span class="badge">' + h2num + '</span>个H2标签,<b class="text-danger">太少了吧！</b></div>');
-							contentjson.h2num = '<div class="alert alert-danger">页面中共有<span class="badge">' + h2num + '</span>个H2标签,<b class="text-danger">太少了吧！</b></div>';
-							that.score = that.score - 5;
+							contentjson.h2num = '<div class="alert alert-success">页面中没有H2标签</div>';
 						}
 					}
 					//H3
@@ -711,65 +656,6 @@
 						}
 						contentjson.qdbq = qdbqcon;
 					}
-					//rel
-					function rel(n) {
-						var relnumlist = '';
-						if(n == 2) {
-							var jszc = parent.find("a:contains('无限动力')").attr("rel");
-						} else if(n == 4) {
-							var jszc = parent.find("a:contains('远景电商')").attr("rel");
-						} else {
-							var jszc = parent.find("a:contains('动力无限')").attr("rel");
-						}
-						var qysp = parent.find("a:contains('企业商铺')").attr("rel");
-						//var csfz = parent.find("a:contains('企业分站')").attr("rel");
-						var wjdhimg = parent.find("img[alt='万家灯火']").parent("a").attr("rel")
-						if(qysp == 'external nofollow') {
-							var qyspnum = 1;
-							var qysphref = parent.find("a:contains('企业商铺')").attr("href");
-							if(qysphref == "http://www.cnhaoshengyi.com" || qysphref == "http://www.cnhaoshengyi.com/") {
-								//$("#qysp").html('<div class="alert alert-success" role="alert">企业商铺链接正确</div>');
-								contentjson.qysp = '<div class="alert alert-success" role="alert">企业商铺链接正确</div>';
-							} else {
-								//$("#qysp").html('<div class="alert alert-danger" role="alert">企业商铺链接错误&nbsp;&nbsp;<a href="' + qysphref + '" target="_blank"><b  class="text-danger">点击访问</b></a></div>');
-								contentjson.qysp = '<div class="alert alert-danger" role="alert">企业商铺链接错误&nbsp;&nbsp;<a href="' + qysphref + '" target="_blank"><b  class="text-danger">点击访问</b></a></div>';
-								that.score = that.score - 5;
-							}
-						} else {
-							//$("#relnum").prepend('<p class="list-group-item list-group-item-warning">企业商铺链接未添加rel属性(或未添加企业商铺)</p>');
-							relnumlist += '<p class="list-group-item list-group-item-warning">企业商铺链接未添加rel属性(或未添加企业商铺)</p>';
-							//$("#qysp").html('<div class="alert alert-warning" role="alert">没找到企业商铺- -！</div>');
-							contentjson.qysp = '<div class="alert alert-warning" role="alert">没找到企业商铺- -！</div>';
-							that.score = that.score - 5;
-						}
-
-						if(wjdhimg == 'external nofollow') {
-							var wjdhimgnum = 1;
-						} else {
-							//$("#relnum").prepend('<p class="list-group-item list-group-item-danger">万家灯火图标链接未添加rel属性(或未添加万家灯火图标)</p>');
-							relnumlist += '<p class="list-group-item list-group-item-danger">万家灯火图标链接未添加rel属性(或未添加万家灯火图标)</p>'
-						}
-						if(jszc == 'external nofollow') {
-							var jszcnum = 1;
-						} else {
-							//$("#relnum").prepend('<p class="list-group-item list-group-item-danger">技术支持链接未添加rel属性(或未添加技术支持)</p>');
-							relnumlist += '<p class="list-group-item list-group-item-danger">技术支持链接未添加rel属性(或未添加技术支持)</p>';
-						}
-						//if (csfz == 'external nofollow') {
-						//    var csfznum = 1;
-						//} else {
-						//    $("#relnum").prepend('<p class="list-group-item list-group-item-danger">企业分站链接未添加rel属性(或未添加企业分站)</p>');
-						//}
-						if((qyspnum + wjdhimgnum + jszcnum) == 3) {
-							//$("#rel").html('<div class="alert alert-success" role="alert">rel属性齐全</div>');
-							contentjson.rel = '<div class="alert alert-success" role="alert">rel属性齐全</div>';
-						} else {
-							//$("#rel").html('<div class="alert alert-warning" role="alert"><b class="text-danger">rel属性不全</b>&nbsp;&nbsp;<a data-toggle="collapse" data-parent="#accordion" href="#rellist"><b class="text-danger">点击查看</b></a></div>');
-							contentjson.rel = '<div class="alert alert-warning" role="alert"><b class="text-danger">rel属性不全</b></div>';
-							that.score = that.score - 5;
-						}
-						contentjson.qysp = relnumlist;
-					}
 					//jQuery
 					function jq() {
 						var jq = parent.find("script");
@@ -842,37 +728,6 @@
 						};
 						contentjson.bannerhref = bannerhreflist
 
-					}
-					//function  program(){
-					//    var html = parent.find("html").html();
-					//    var regProgram = /<pst|<class|{wjdh:.*?}|{url:[0-9]+}|<trim|<paging|{c:.*?}|{diy:.*?}|<ad|<pnklist|{show:.*?}|{title}|{thumb}|{zhaiyao}|{sthumb}{url}|{content}/;
-					//    if(regProgram.test(html) == true){
-					//        $("#program").html('<div class="alert alert-danger" role="alert">网站存在未解析的程序代码！</div>');
-					//        that.score = that.score - 20;
-					//    }else{
-					//        $("#program").html('<div class="alert alert-success" role="alert">未检测到未解析的程序代码！</div>');
-					//    }
-					//}
-					function program() {
-						var regex = /<pst|<class|{wjdh:.*?}|{url:.*?}|<trim|<paging|{c:.*?}|{diy:.*?}|<ad|<pnklist|{show:.*?}|{title}|{thumb}|{zhaiyao}|{sthumb}{url}|{content}/g;
-						var result = parent.html().match(regex);
-						var programnumlist = '';
-						if(null == result || 0 == result.length) {
-							//document.getElementById("textMatchResult").value = "（没有匹配）";
-							//$("#program").html('<div class="alert alert-success" role="alert">未检测到未解析的程序代码！</div>');
-							contentjson.program = '<div class="alert alert-success" role="alert">未检测到未解析的程序代码！</div>';
-							return false;
-						} else {
-							for(var i = 0; i < result.length; ++i) {
-								//$("#programnum").prepend('<p class="list-group-item list-group-item-danger"><xmp>' + result[i] + '</xmp></p>');
-								programnumlist += '<p class="list-group-item list-group-item-danger"><xmp>' + result[i] + '</xmp></p>';
-								that.score = that.score - 10;
-							}
-							contentjson.programnum = programnumlist;
-							//$("#program").html('<div class="alert alert-danger" role="alert">网站存在<span class="badge">' + result.length + '</span>个未解析的程序代码！&nbsp;&nbsp;<a data-toggle="collapse" data-parent="#accordion" href="#programlist"><b class="text-danger">点击查看</b></a></div>');
-							contentjson.program = '<div class="alert alert-danger" role="alert">网站存在<span class="badge">' + result.length + '</span>个未解析的程序代码！&nbsp;&nbsp;<a data-toggle="collapse" data-parent="#accordion" href="#programlist"><b class="text-danger">点击查看</b></a></div>';
-						}
-						return true;
 					}
 
 				}, function(res) {
